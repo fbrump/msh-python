@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# msh-python/msh/swgi.py
 """
 WSGI config for msh project.
 

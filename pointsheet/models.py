@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+# msh-python/pointsheet/models.py
+
 from __future__ import unicode_literals
 
 from django.db import models
 
-class PointSheet(models.Model):
+class Pointsheet(models.Model):
     """
     Description: This model keep all release for hours.
     """
