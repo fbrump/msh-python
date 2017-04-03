@@ -24,12 +24,9 @@ class PointsheetList(
 	serializer_class = PointsheetSerializer
 
 	def get(self, request, *args, **kwargs):
-		print('Method GET from Pointsheet List')
 		return self.list(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
-		print('Method POST from Pointsheet List')
-		print(self)
 		return self.create(request, *args, **kwargs)
 
 class PointsheetDetail(
@@ -46,6 +43,7 @@ class PointsheetDetail(
 		return self.retrieve(request, *args, **kwargs)
 
 	def put(self, request, *args, **kwargs):
+		print('PUT in PointsheetDetail')
 		return self.update(request, *args, **kwargs)
 
 	def delete(self, request, *args, **kwargs):

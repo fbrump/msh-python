@@ -19,6 +19,20 @@
                 <h2>Pointsheet</h2>
             </header>
             <section class="row">
+                <button class="btn btn-primary" data-ng-click="showForm()">
+                    Insert
+                </button>
+                <button class="btn btn-default" title="Came back for last page.. defained so long">
+                    Came back
+                </button>
+            </section>
+            <section class="row">
+                <header class="alert alert-success" data-ng-show="data.success">
+                    <b>Success!</b>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </header>
                 <article class="table-responsive">
                     <table class="table table-striped table-bordered table-hover table-condensed" data-ng-if="data.pointsheets.length > 0">
                         <thead>
@@ -40,7 +54,7 @@
                                 <td data-ng-bind="item.year"></td>
                                 <td data-ng-bind="item.month"></td>
                                 <td>
-                                    <a href="#editar" class="btn btn-info">
+                                    <a href="#editar" class="btn btn-info" data-ng-click="updateForm(item)">
                                         <input type="hidden" name="" value="" data-ng-bind="item.id">
                                         Edit
                                     </a>
@@ -55,21 +69,41 @@
                     <em data-ng-if="data.pointsheets.length==0">Not exist any register of the pointsheet in the system</em>
                 </article>
             </section>
-            <div class="alert alert-success" data-ng-show="data.success">
-                <b>Atualizado!</b>
-                <br><br>
+
+            <!-- MODEL FORM -->
+            <div id="modalFormPointsheet" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Pointsheet</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form form-aligned" data-ng-submit="updatePointsheet()">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="" data-nd-bind="data.id">
+                                <div class="form-group">
+                                    <label>Year:</label>
+                                    <input type="number" id="id_year" name="year" value="" data-ng-model="data.year" class="form-control" placeholder="Year" title="Enter pointsheet year" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label>Month:</label>
+                                    <input type="number" id="id_month" name="month" value="" data-ng-model="data.month" class="form-control" placeholder="Month" title="Enter pointsheet month" required="required">
+                                </div>
+                                <div class="text-rigth">
+                                    <input type="submit" value="Save" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+                        <!--
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" title="Save changes">Save</button>
+                        </div>-->
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
             </div>
-            <br>
-            <form class="form form-aligned" data-ng-submit="updatePointsheet()">
-                {% csrf_token %}
-                <label>Year:</label>
-                <input type="number" name="year" value="" data-ng-model="data.year" placeholder="Year" title="Enter pointsheet year">
-                <br><br>
-                <label>Month:</label>
-                <input type="number" name="month" value="" data-ng-model="data.month" placeholder="Month" title="Enter pointsheet month">
-                <input type="submit" value="Adicionar comentário">
-            </form>
-            <hr>
+            <!-- /.modal -->
         </main>
 
         <!-- JAVASCRIPTs -->
