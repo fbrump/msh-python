@@ -4,21 +4,23 @@
 <html data-ng-app="pointsheetApp">
     <head>
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css">
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/common.css' %}">
         <script>
-        globals = {
-            pointsheetsUrl: '{% url "pointsheets" %}'
-        }
+            globals = {
+                pointsheetsUrl: '{% url "pointsheets" %}'
+            }
         </script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js" charset="utf-8"></script>
-        <script src="{% static 'js/angular-csrf-cross-domain.js' %}"></script>
-        <script src="{% static 'js/core.js' %}"></script>
     </head>
     <body>
-        <div data-ng-controller="pointsheetsCtrl">
+        <main data-ng-controller="pointsheetsCtrl">
+            <header>
+                <h2>Pointsheet</h2>
+            </header>
             <section class="row">
-                <article>
-                    <table class="table">
+                <article class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover table-condensed" data-ng-if="data.pointsheets.length > 0">
                         <thead>
                             <tr>
                                 <th>Year</th>
@@ -28,7 +30,9 @@
                         </thead>
                         <tfoot>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="3">
+                                    <em>Rown <strong ng-bind="data.pointsheets.length"></strong></em>
+                                </td>
                             </tr>
                         </tfoot>
                         <tbody data-ng-repeat="item in data.pointsheets">
@@ -38,22 +42,25 @@
                                 <td>
                                     <a href="#editar" class="btn btn-info">
                                         <input type="hidden" name="" value="" data-ng-bind="item.id">
+                                        Edit
                                     </a>
                                     <a href="#remove" class="btn btn-danger" data-ng-click="removePointsheet(item)">
                                         <input type="hidden" name="" value="" data-ng-bind="item.id">
+                                        Remove
                                     </a>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <em data-ng-if="data.pointsheets.length==0">Not exist any register of the pointsheet in the system</em>
                 </article>
             </section>
-            <div class="pure-alert pure-alert-success" data-ng-show="data.success">
+            <div class="alert alert-success" data-ng-show="data.success">
                 <b>Atualizado!</b>
                 <br><br>
             </div>
             <br>
-            <form class="pure-form pure-form-aligned" data-ng-submit="updatePointsheet()">
+            <form class="form form-aligned" data-ng-submit="updatePointsheet()">
                 {% csrf_token %}
                 <label>Year:</label>
                 <input type="number" name="year" value="" data-ng-model="data.year" placeholder="Year" title="Enter pointsheet year">
@@ -63,6 +70,18 @@
                 <input type="submit" value="Adicionar comentário">
             </form>
             <hr>
-        </div>
+        </main>
+
+        <!-- JAVASCRIPTs -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js" charset="utf-8"></script>
+
+        <!-- BOOTSTRAP -->
+        <script src="{% static 'js/bootstrap/js/bootstrap.min.js' %}"></script>
+
+        <!-- ANGULAR -->
+        <script src="{% static 'js/angular-csrf-cross-domain.js' %}"></script>
+        <script src="{% static 'js/core.js' %}"></script>
     </body>
 </html>
