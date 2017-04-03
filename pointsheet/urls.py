@@ -9,8 +9,8 @@ from . import views
 
 urlpatterns = [
 	url(r'^pointsheets/$', views.PointsheetList.as_view(), name='pointsheets'),
-	url(r'^pointsheets/(?P<index>[0-9]+)/$', views.PointsheetDetail.as_view(), name='pointsheets-detail'),
-	#url(r'^$', views.PointsheetView.as_view()),
+	url(r'^pointsheets/(?P<pk>[0-9]+)/$', views.PointsheetDetail.as_view(), name='pointsheets-detail'),
+	url(r'^$', views.PointsheetView.as_view()),
 	]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -4,9 +4,15 @@
 #from django.shortcuts import render
 from rest_framework import mixins
 from rest_framework import generics
+from django.views.generic import TemplateView
+from django.http import HttpResponse
+import json
 
 from .models import Pointsheet
 from .serializers import PointsheetSerializer
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from django.utils.six import BytesIO
 
 class PointsheetList(
 	mixins.ListModelMixin,
@@ -18,9 +24,12 @@ class PointsheetList(
 	serializer_class = PointsheetSerializer
 
 	def get(self, request, *args, **kwargs):
+		print('Method GET from Pointsheet List')
 		return self.list(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
+		print('Method POST from Pointsheet List')
+		print(self)
 		return self.create(request, *args, **kwargs)
 
 class PointsheetDetail(
@@ -42,5 +51,5 @@ class PointsheetDetail(
 	def delete(self, request, *args, **kwargs):
 		return self.destroy(request, *args, **kwargs)
 
-def PointsheetView(request):
-	return 'view-pointsheet'
+class PointsheetView(TemplateView):
+    template_name = "pointsheet/pointsheet.html"
