@@ -82,7 +82,7 @@ myApp.controller('pointsheetsCtrl', function ($scope, PointsheetApi, PointsheetF
     };
 
     var func_cleanForm = function () {
-        $scope.data.id = "";
+        $scope.data.id = undefined;
         $scope.data.year = "";
         $scope.data.month = "";
     };

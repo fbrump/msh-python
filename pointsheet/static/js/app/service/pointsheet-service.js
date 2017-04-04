@@ -33,7 +33,7 @@ myServiceModule.service('PointsheetApi', ['$http', function($http){
 	 * @type {Function}
 	 */
 	_service.Post = function (data) {
-		return $http({ method: 'POST', url: globals.pointsheetsUrl, data: data });
+		return $http({ method: 'POST', url: '/pointsheets/', data: data });
 	}
 
     return _service;
