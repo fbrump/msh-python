@@ -1,0 +1,60 @@
+{% load static from staticfiles %}
+
+<!doctype html>
+<html data-ng-app="mshApp">
+    <head>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css">
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/common.css' %}">
+        <script>
+            globals = {
+                pointsheetsUrl: '{% url "pointsheets" %}'
+            }
+        </script>
+    </head>
+    <body>
+        <main class="container">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">MSH</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/">Pointsheet <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Link</a></li>
+                      </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+            {% block content %}
+            {% endblock content %}
+        </main>
+
+        <!-- JAVASCRIPTs -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js" charset="utf-8"></script>
+
+        <!-- BOOTSTRAP -->
+        <script src="{% static 'js/bootstrap/js/bootstrap.min.js' %}"></script>
+
+        <!-- ANGULAR -->
+        <script src="{% static 'js/angular-csrf-cross-domain.js' %}"></script>
+        <script src="{% static 'js/app/factory/pointsheet-factory.js' %}"></script>
+        <script src="{% static 'js/app/service/pointsheet-service.js' %}"></script>
+        <script src="{% static 'js/app/app.js' %}"></script>
+        <script src="{% static 'js/app/controller/pointsheet-controller.js' %}"></script>
+    </body>
+</html>

@@ -1,34 +1,10 @@
-var profileEditApp = angular.module('pointsheetApp', []);
- 
-profileEditApp.config(['$httpProvider', '$interpolateProvider',
-    function($httpProvider, $interpolateProvider) {
-    /* for compatibility with django teplate engine */
-    $interpolateProvider.startSymbol('{$');
-    $interpolateProvider.endSymbol('$}');
-    /* csrf */
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-}]);
- 
-profileEditApp.controller('pointsheetsCtrl', function ($scope, $http) {
-    $scope.data = { success: false, teste:"pinzi" };
+
+myApp.controller('pointsheetsCtrl', function ($scope, PointsheetApi, PointsheetFactory) {
+    $scope.data = { success: false };
     $scope.messageModal = { type: '', messages: [] };
- 
-    function getPointsheets(){
-        $http({ method: 'GET', url: globals.pointsheetsUrl })
-        .success(function(data, status, headers, config) {
-            console.log('oi')
-            $scope.data.pointsheets = data;
-        })
-        .error(function(e) {
-            console.error(e);
-        });
-    };
- 
-    getPointsheets();
- 
+
     $scope.removePointsheet = function(pointsheet){
-        $http({ method: 'DELETE', url: globals.pointsheetsUrl + pointsheet.id + "/", data: { id: pointsheet.id } })
+        PointsheetApi.Delete(pointsheet.id)
         .success(function(data, status, headers, config) {
             var index = $scope.data.pointsheets.indexOf(pointsheet);
             if (index != -1) {
@@ -41,10 +17,9 @@ profileEditApp.controller('pointsheetsCtrl', function ($scope, $http) {
     };
  
     $scope.updatePointsheet = function() {
-        var _form = { year: $scope.data['year'], month: $scope.data['month'] };
         if (!angular.isUndefined($scope.data.id))
         {
-            $http({ method: 'PUT', url: globals.pointsheetsUrl + $scope.data.id + "/", data: _form })
+            PointsheetApi.Put($scope.data.id, PointsheetFactory.ConstructorModel($scope.data))
             .success(function(data, status, headers, config) {
                 $scope.data['success'] = true;
                 getPointsheets();
@@ -56,7 +31,7 @@ profileEditApp.controller('pointsheetsCtrl', function ($scope, $http) {
             });
 
         } else {
-            $http({method: 'POST', url: globals.pointsheetsUrl, data: _form})
+            PointsheetApi.Post(PointsheetFactory.ConstructorModel($scope.data))
             .success(function(data, status, headers, config) {
                 $scope.data['success'] = true;
                 getPointsheets();
@@ -75,11 +50,21 @@ profileEditApp.controller('pointsheetsCtrl', function ($scope, $http) {
     };
 
     $scope.showForm = function () {
+        func_cleanForm();
         func_showModal();
     };
 
+    function getPointsheets(){
+        PointsheetApi.Get()
+        .success(function(data, status, headers, config) {
+            $scope.data.pointsheets = data;
+        })
+        .error(function(e) {
+            console.error(e);
+        });
+    };
+
     var func_showModal = function () {
-        console.log('show modal form');
         $('#modalFormPointsheet').on('shown.bs.modal', function () {
             $('#id_year').focus();
         });
@@ -108,23 +93,8 @@ profileEditApp.controller('pointsheetsCtrl', function ($scope, $http) {
         else
             $scope.messageModal.type = 'success';
         $scope.messageModal.messages.push(message);
-    }
+    };
 
-    // using jQuery
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    //var csrftoken = getCookie('csrftoken');
+    // Load page
+    getPointsheets();
 });
