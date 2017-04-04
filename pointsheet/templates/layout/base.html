@@ -6,16 +6,10 @@
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css">
         <!-- BOOTSTRAP -->
         <link rel="stylesheet" href="{% static 'css/bootstrap/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/common.css' %}">
-        <script>
-            globals = {
-                pointsheetsUrl: '{% url "pointsheets" %}'
-            }
-        </script>
     </head>
     <body>
         <main class="container">
-            <nav class="navbar navbar-default navbar-fixed-top">
+            <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -38,8 +32,14 @@
                       </ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
+            <header>
+            </header>
+            <br>
             {% block content %}
             {% endblock content %}
+            <footer class="text-center">
+                Rodapé
+            </footer>
         </main>
 
         <!-- JAVASCRIPTs -->
@@ -52,9 +52,8 @@
 
         <!-- ANGULAR -->
         <script src="{% static 'js/angular-csrf-cross-domain.js' %}"></script>
-        <script src="{% static 'js/app/factory/pointsheet-factory.js' %}"></script>
-        <script src="{% static 'js/app/service/pointsheet-service.js' %}"></script>
         <script src="{% static 'js/app/app.js' %}"></script>
-        <script src="{% static 'js/app/controller/pointsheet-controller.js' %}"></script>
+        {% block scriptsContent %}    
+        {% endblock scriptsContent %}
     </body>
 </html>

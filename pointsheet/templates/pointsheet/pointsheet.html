@@ -1,12 +1,17 @@
 {% extends 'layout/base.html' %}
+{% load static from staticfiles %}
 
 {% block content %}
 
-<section data-ng-controller="pointsheetsCtrl">
-    <header>
-        <h2>Pointsheet</h2>
+<section data-ng-controller="pointsheetsCtrl" class="container">
+    <header class="page-header">
+        <h2>Pointsheet - <small>Main</small></h2>
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">Pointsheet</li>
+        </ol>
     </header>
-    <section class="row">
+    <section class="row well">
         <button class="btn btn-primary" data-ng-click="showForm()">
             Insert
         </button>
@@ -58,40 +63,15 @@
         </article>
     </section>
 
-    <!-- MODEL FORM -->
-    <div id="modalFormPointsheet" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Pointsheet</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form form-aligned" data-ng-submit="updatePointsheet()">
-                        {% csrf_token %}
-                        <input type="hidden" name="id" value="" data-nd-bind="data.id">
-                        <div class="form-group">
-                            <label>Year:</label>
-                            <input type="number" id="id_year" name="year" value="" data-ng-model="data.year" class="form-control" placeholder="Year" title="Enter pointsheet year" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Month:</label>
-                            <input type="number" id="id_month" name="month" value="" data-ng-model="data.month" class="form-control" placeholder="Month" title="Enter pointsheet month" required="required">
-                        </div>
-                        <div class="text-rigth">
-                            <input type="submit" value="Save" class="btn btn-primary">
-                        </div>
-                    </form>
-                </div>
-                <!--
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" title="Save changes">Save</button>
-                </div>-->
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+    {% include "pointsheet/partial/_modalForm.html" %}
 </section>
 
 {% endblock content %}
+
+{% block scriptsContent %}
+
+<script src="{% static 'js/app/factory/pointsheet-factory.js' %}"></script>
+<script src="{% static 'js/app/service/pointsheet-service.js' %}"></script>
+<script src="{% static 'js/app/controller/pointsheet-controller.js' %}"></script>
+
+{% endblock scriptsContent %}
