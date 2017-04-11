@@ -3,4 +3,10 @@
 
 from django.test import TestCase
 
-# Create your tests here.
+import unittest
+
+from .models import Release
+
+class ReleaseTest(unittest.TestCase):
+	"""docstring for ReleaseTest"""
+	pass
