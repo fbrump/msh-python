@@ -12,19 +12,19 @@ class Release(models.Model):
     Description: That class mapping release of system.
 
     Properties:
-    	date 			 		--
-    	dayweek 		 		--
-    	checkin 		 		--
-    	checkout_lunch 	 		--
-    	checkin_lunch 	 		--
-    	checkout 		 		--
-    	is_holiday 		 		--
-    	type_absence 	 		--
-    	checkin_absence  		--
-    	checkout_absence 		--
-    	justification_absence 	--
-    	file_link 				--
-    	pointsheet 				--
+    	date 			 		-- Date of release
+    	dayweek 		 		-- Day of week of release
+    	checkin 		 		-- Time of check-in job
+    	checkout_lunch 	 		-- Time of check-out to lunch
+    	checkin_lunch 	 		-- Time of check-in from lunch
+    	checkout 		 		-- Time of check-out job
+    	is_holiday 		 		-- Is holiday or not
+    	type_absence 	 		-- Type of absence, if exist
+    	checkin_absence  		-- Time of check-in to absence, if exist
+    	checkout_absence 		-- Time of check-out from absence, if exist
+    	justification_absence 	-- Description of justification of absence, if exist
+    	file_link 				-- File for link with document or something like this for justification absence, if existe
+    	pointsheet 				-- Pointsheet associated
     """
     SUNDAY = 'SUN'
     MONDAY = 'MON'
