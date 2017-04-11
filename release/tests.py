@@ -27,7 +27,7 @@ class ReleaseTest(unittest.TestCase):
 	def get_pointsheet_valid(self):
 		"""
 		"""
-		return Pointsheet.objects.filter(year=2016, month=12).first()
+		return Pointsheet.objects.get(year=2016, month=12)
 	#@classmethod
 	def delete_pointsheet_valid(self):
 		"""
@@ -141,8 +141,27 @@ class ReleaseTest(unittest.TestCase):
 		self.create_basic_release_normal(datetime.date(2016, 12, 12), Release.MONDAY, pointsheet)
 		self.create_basic_release_normal(datetime.date(2016, 12, 13), Release.TUESDAY, pointsheet)
 		#Act
-		Release.objects.filter(date=datetime.date(2016, 12, 12)).delete()
+		Release.objects.get(date=datetime.date(2016, 12, 12)).delete()
 		_count = len(Release.objects.all())
 		#Assert
 		self.assertEqual(_count, 2)
+
+	def test_update_one_release(self):
+		"""
+			Description -- : Teste if create new release is correct or not
+			Senario ------ : One pointsheet for one release
+		"""
+		print('test_delete_one_release')
+		# Arrange
+		pointsheet = self.get_pointsheet_valid()
+		self.create_basic_release_weeekend_work_without_lunch(datetime.date(2016, 12, 10), Release.SATURDAY, pointsheet)
+		self.create_basic_release_normal(datetime.date(2016, 12, 12), Release.MONDAY, pointsheet)
+		self.create_basic_release_normal(datetime.date(2016, 12, 13), Release.TUESDAY, pointsheet)
+		#Act
+		_release = Release.objects.get(date=datetime.date(2016, 12, 12))
+		_release.date = datetime.date(2016, 12, 14)
+		_release.save()
+		_count = len(Release.objects.all())
+		#Assert
+		self.assertEqual(_count, 3)
 
