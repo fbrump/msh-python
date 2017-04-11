@@ -17,4 +17,5 @@ class Pointsheet(models.Model):
     #position
 
     class Meta:
-        pass
+        #unique_together = ('year', 'month')
+        index_together = ['year', 'month', 'pointsheet']

@@ -11,8 +11,29 @@ from .models import Release
 
 class ReleaseTest(unittest.TestCase):
 	"""docstring for ReleaseTest"""
+	def setUp(self):
+		print('>>>> SET UP')
+		self.create_pointsheet_valid()
+	def tearDown(self):
+		print('>>>> TEAR DOWN')
+		self.delete_pointsheet_valid()
+	## PRIVATES METHODS
+	#@classmethod
 	def create_pointsheet_valid(self):
-		return Pointsheet.objects.create(year=2016, month=12)
+		"""
+		"""
+		Pointsheet.objects.create(year=2016, month=12)
+	#@classmethod
+	def get_pointsheet_valid(self):
+		"""
+		"""
+		return Pointsheet.objects.filter(year=2016, month=12).first()
+	#@classmethod
+	def delete_pointsheet_valid(self):
+		"""
+		"""
+		Pointsheet.objects.filter(year=2016, month=12).delete()
+
 	def create_basic_release_normal(self, date, dayofweek, pointsheet):
 		return Release.objects.create(
 			date=date,
@@ -41,17 +62,21 @@ class ReleaseTest(unittest.TestCase):
 			checkout= datetime.time(16, 0),
 			pointsheet=pointsheet
 		)
-	
+
+	## PUBLICS TESTS
 	def test_create_new_release(self):
 		"""
 			Description -- : Teste if create new release is correct or not
 			Senario ------ : One pointsheet for one release
 		"""
+		print('test_create_new_release')
 		# Arrange
-		pointsheet = self.create_pointsheet_valid()
+		
+		pointsheet = self.get_pointsheet_valid()
 		self.create_basic_release_normal(datetime.date(2016, 12, 01), Release.TUESDAY, pointsheet)
 		#Act
 		_count = len(Release.objects.all())
+		
 		#Assert
 		self.assertEqual(_count, 1)
 
@@ -60,8 +85,9 @@ class ReleaseTest(unittest.TestCase):
 			Description -- : Teste if create new release is correct or not when have multiples inserts and work on weekends
 			Senario ------ : One pointsheet for multiples releases
 		"""
+		print('test_create_new_release_multiples')
 		# Arrange
-		pointsheet = self.create_pointsheet_valid()
+		pointsheet = self.get_pointsheet_valid()
 		
 		self.create_basic_release_normal(datetime.date(2016, 12, 2), Release.WEDNESDAY, pointsheet)
 		self.create_basic_release_normal(datetime.date(2016, 12, 3), Release.FRIDAY, pointsheet)
@@ -73,7 +99,7 @@ class ReleaseTest(unittest.TestCase):
 		_count = len(Release.objects.all())
 		_release = Release.objects.get(id=2)
 		#Assert
-		self.assertEqual(_count, 7)
+		self.assertEqual(_count, 6)
 		self.assertEqual(_release.dayweek, Release.WEDNESDAY)
 
 	def test_create_new_release_multiples_with_weekend_work(self):
@@ -81,8 +107,9 @@ class ReleaseTest(unittest.TestCase):
 			Description -- : Teste if create new release is correct or not when have multiples inserts and work on weekends
 			Senario ------ : One pointsheet for multiples releases (many differents)
 		"""
+		print('test_create_new_release_multiples_with_weekend_work')
 		# Arrange
-		pointsheet = self.create_pointsheet_valid()
+		pointsheet = self.get_pointsheet_valid()
 
 		self.create_basic_release_weeekend_work_without_lunch(datetime.date(2016, 12, 10), Release.SATURDAY, pointsheet)
 		self.create_basic_release_normal(datetime.date(2016, 12, 12), Release.MONDAY, pointsheet)
@@ -98,6 +125,24 @@ class ReleaseTest(unittest.TestCase):
 		_release_date = Release.objects.get(date=datetime.date(2016, 12, 16))
 		_count_release_dayweek = len(Release.objects.filter(dayweek=Release.SATURDAY))
 		#Assert
-		self.assertEqual(_count, 16)
+		self.assertEqual(_count, 9)
 		self.assertEqual(_release_date.dayweek, Release.FRIDAY)
 		self.assertEqual(_count_release_dayweek, 2)
+
+	def test_delete_one_release(self):
+		"""
+			Description -- : Teste if create new release is correct or not
+			Senario ------ : One pointsheet for one release
+		"""
+		print('test_delete_one_release')
+		# Arrange
+		pointsheet = self.get_pointsheet_valid()
+		self.create_basic_release_weeekend_work_without_lunch(datetime.date(2016, 12, 10), Release.SATURDAY, pointsheet)
+		self.create_basic_release_normal(datetime.date(2016, 12, 12), Release.MONDAY, pointsheet)
+		self.create_basic_release_normal(datetime.date(2016, 12, 13), Release.TUESDAY, pointsheet)
+		#Act
+		Release.objects.filter(date=datetime.date(2016, 12, 12)).delete()
+		_count = len(Release.objects.all())
+		#Assert
+		self.assertEqual(_count, 2)
+
