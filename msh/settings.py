@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # Models
     'pointsheet',
+    'release',
 ]
 
 MIDDLEWARE = [
