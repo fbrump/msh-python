@@ -14,40 +14,40 @@
                     <input type="hidden" name="id" value="" data-nd-bind="data.id">
                     <div class="form-group col-sm-12 content-date">
                         <label>Date:</label>
-                        <div class="input-group date">
+                        <div class="input-group date" title="Enter release date">
                             <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                            <input type="date" id="id_date" name="date" value="" data-ng-model="data.date" class="form-control" placeholder="yyyy-mm-dd" title="Enter release date" required="required" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="2016-06-01">
+                            <input type="date" id="id_date" name="date" value="" data-ng-model="data.date" class="form-control" placeholder="yyyy-mm-dd" required="required" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="2016-06-01">
                         </div>
                     </div>
                     <div class="form-group col-sm-6 content-time">
                         <label class="sr-only" for="id_checkin">Checkin:</label>
-                        <div class="input-group time">
+                        <div class="input-group time" title="Enter release checkin">
                             <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
-                            <input type="time" id="id_checkin" name="checkin" value="" data-ng-model="data.checkin" class="form-control" placeholder="hh:mm" title="Enter release checkin" required="required" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <input type="time" id="id_checkin" name="checkin" value="" data-ng-model="data.checkin" class="form-control" placeholder="hh:mm" required="required" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
                     <div class="form-group col-sm-6 content-time">
                         <label class="sr-only" for="id_checkout_lunch">Checkout Lunch:</label>
-                        <div class="input-group time">
-                            <div class="input-group-addon"><span class="fa fa-clock-o"></span>|<span class="fa fa-cutlery"></span></div>
-                            <input type="time" id="id_checkout_lunch" name="checkout_lunch" value="" data-ng-model="data.checkout_lunch" class="form-control" placeholder="hh:mm" title="Enter release checkout lunch" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                        <div class="input-group time" title="Enter release checkout lunch">
+                            <div class="input-group-addon"><span class="fa fa-cutlery"></span></div>
+                            <input type="time" id="id_checkout_lunch" name="checkout_lunch" value="" data-ng-model="data.checkout_lunch" class="form-control" placeholder="hh:mm" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
                     <div class="form-group col-sm-6 content-time">
                         <label class="sr-only" for="id_checkin_lunch">Checkin Lunch:</label>
-                        <div class="input-group time">
-                            <div class="input-group-addon"><span class="fa fa-clock-o"></span>|<span class="fa fa-cutlery"></span></div>
-                            <input type="time" id="id_checkin_lunch" name="checkin_lunch" value="" data-ng-model="data.checkin_lunch" class="form-control" placeholder="hh:mm" title="Enter release checkin lunch" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                        <div class="input-group time" title="Enter release checkin lunch">
+                            <div class="input-group-addon"><span class="fa fa-cutlery"></span></div>
+                            <input type="time" id="id_checkin_lunch" name="checkin_lunch" value="" data-ng-model="data.checkin_lunch" class="form-control" placeholder="hh:mm" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
                     <div class="form-group col-sm-6 content-time">
                         <label class="sr-only" for="id_checkin_lunch">Checkout:</label>
-                        <div class="input-group time">
+                        <div class="input-group time" title="Enter release checkout">
                             <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
-                            <input type="time" id="id_checkout" name="checkout" value="" data-ng-model="data.checkout" class="form-control" placeholder="hh:mm" title="Enter release checkout" required="required" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <input type="time" id="id_checkout" name="checkout" value="" data-ng-model="data.checkout" class="form-control" placeholder="hh:mm" required="required" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
