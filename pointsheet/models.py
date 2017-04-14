@@ -16,6 +16,6 @@ class Pointsheet(models.Model):
     #company
     #position
 
-    class Meta:
+    #class Meta:
         #unique_together = ('year', 'month')
-        index_together = ['year', 'month', 'pointsheet']
+        #index_together = ['year', 'month', 'pointsheet']
