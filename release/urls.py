@@ -10,7 +10,7 @@ from . import views
 urlpatterns = [
 	# url(r'^api/releases/$', views.PointsheetList.as_view(), name='pointsheets'),
 	# url(r'^api/releases/(?P<pk>[0-9]+)/$', views.PointsheetDetail.as_view(), name='pointsheets-detail'),
-	url(r'^release/$', views.index),
+	url(r'^release/$', views.index, name='release'),
 	]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

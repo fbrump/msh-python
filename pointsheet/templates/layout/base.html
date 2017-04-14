@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css">
         <!-- BOOTSTRAP -->
         <link rel="stylesheet" href="{% static 'css/bootstrap/css/bootstrap.min.css' %}">
+        <!-- FONT AWESOME -->
+        <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.css' %}">
     </head>
     <body>
         <main class="container">
@@ -33,12 +35,24 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="/">Pointsheet <span class="sr-only">(current)</span></a>
+                            <a href="{% url 'pointsheet' %}" title="Pointsheet menu">
+                                Pointsheet <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'release' %}" title="Release menu">
+                                Release <span class="sr-only">(current)</span>
+                            </a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Link</a></li>
-                      </ul>
+                        <li>
+                            <a href="#">
+                                <span class="fa fa-user" aria-hidden="true"></span>
+                                Login
+                            </a>
+                        </li>
+                    </ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
             <header>
