@@ -13,7 +13,7 @@ urlpatterns = [
 	# url(r'^api/releases/(?P<pk>[0-9]+)/$', views.PointsheetDetail.as_view(), name='pointsheets-detail'),
 	url(r'^api/releases/$', api_views.ReleaseList),
     url(r'^api/releases/(?P<pk>[0-9]+)/$', api_views.ReleaseDetail),
-	url(r'^release/$', views.index, name='release'),
+	url(r'^release/$', views.ReleaseView.as_view(), name='release'),
 	]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
