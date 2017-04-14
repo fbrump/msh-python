@@ -15,8 +15,14 @@
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css">
         <!-- BOOTSTRAP -->
         <link rel="stylesheet" href="{% static 'css/bootstrap/css/bootstrap.min.css' %}">
+        <!-- BOOTSTRAP DATEPICKER -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker/css/bootstrap-datepicker.css' %}">
+        <!-- BOOTSTRAP TIMEPICKER -->
+        <link rel="stylesheet" href="{% static 'css/clockpicker-gh-pages/css/bootstrap-clockpicker.min.css' %}">
         <!-- FONT AWESOME -->
         <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.css' %}">
+
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
     </head>
     <body>
         <main class="container">
@@ -61,7 +67,7 @@
             {% block content %}
             {% endblock content %}
             <footer class="text-center">
-                Rodapé
+                <p>&copy; 2017<p>
             </footer>
         </main>
 
@@ -72,11 +78,17 @@
 
         <!-- BOOTSTRAP -->
         <script src="{% static 'js/bootstrap/js/bootstrap.min.js' %}"></script>
+        <!-- BOOTSTRAP DATEPICKER -->
+        <script src="{% static 'js/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+        <!-- BOOTSTRAP TIMEPICKER -->
+        <script src="{% static 'js/clockpicker-gh-pages/js/bootstrap-clockpicker.min.js' %}"></script>
+        
+        <script src="{% static 'js/main.js' %}"></script>
 
         <!-- ANGULAR -->
         <script src="{% static 'js/angular-csrf-cross-domain.js' %}"></script>
         <script src="{% static 'js/app/app.js' %}"></script>
-        {% block scriptsContent %}    
+        {% block scriptsContent %}
         {% endblock scriptsContent %}
     </body>
 </html>

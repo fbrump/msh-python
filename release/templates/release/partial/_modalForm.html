@@ -10,16 +10,47 @@
                 <form class="form form-aligned" data-ng-submit="updateRelease()">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="" data-nd-bind="data.id">
-                    {# <div class="form-group">
-                        <label>Year:</label>
-                        <input type="number" id="id_year" name="year" value="" data-ng-model="data.year" class="form-control" placeholder="Year" title="Enter pointsheet year" required="required">
+                    <div class="form-group content-date">
+                        <label>Date:</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+                            <input type="date" id="id_date" name="date" value="" data-ng-model="data.date" class="form-control" placeholder="yyyy-mm-dd" title="Enter release date" required="required" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="2016-06-01">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Month:</label>
-                        <input type="number" id="id_month" name="month" value="" data-ng-model="data.month" class="form-control" placeholder="Month" title="Enter pointsheet month" required="required">
-                    </div> #}
+                    <div class="form-group col-md-6 content-time">
+                        <label class="sr-only" for="id_checkin">Checkin:</label>
+                        <div class="input-group time">
+                            <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
+                            <input type="time" id="id_checkin" name="checkin" value="" data-ng-model="data.checkin" class="form-control" placeholder="hh:mm" title="Enter release checkin" required="required" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="input-group-addon">hs</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 content-time">
+                        <label class="sr-only" for="id_checkout_lunch">Checkout Lunch:</label>
+                        <div class="input-group time">
+                            <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
+                            <input type="time" id="id_checkout_lunch" name="checkout_lunch" value="" data-ng-model="data.checkout_lunch" class="form-control" placeholder="hh:mm" title="Enter release checkout lunch" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="input-group-addon">hs</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 content-time">
+                        <label class="sr-only" for="id_checkin_lunch">Checkin Lunch:</label>
+                        <div class="input-group time">
+                            <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
+                            <input type="time" id="id_checkin_lunch" name="checkin_lunch" value="" data-ng-model="data.checkin_lunch" class="form-control" placeholder="hh:mm" title="Enter release checkin lunch" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="input-group-addon">hs</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 content-time">
+                        <label class="sr-only" for="id_checkin_lunch">Checkout:</label>
+                        <div class="input-group time">
+                            <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
+                            <input type="time" id="id_checkout" name="checkout" value="" data-ng-model="data.checkout" class="form-control" placeholder="hh:mm" title="Enter release checkout" required="required" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                            <div class="input-group-addon">hs</div>
+                        </div>
+                    </div>
                     <div class="text-rigth">
-                        <input type="submit" value="Save" class="btn btn-primary">
+                        <input type="submit" value="Save" class="btn btn-primary" title="Save">
                     </div>
                 </form>
             </div>
