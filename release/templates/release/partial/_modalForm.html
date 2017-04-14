@@ -3,14 +3,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title">Release</h4>
             </div>
             <div class="modal-body">
                 <form class="form form-aligned" data-ng-submit="updateRelease()">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="" data-nd-bind="data.id">
-                    <div class="form-group content-date">
+                    <div class="form-group col-sm-12 content-date">
                         <label>Date:</label>
                         <div class="input-group date">
                             <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
@@ -28,7 +30,7 @@
                     <div class="form-group col-sm-6 content-time">
                         <label class="sr-only" for="id_checkout_lunch">Checkout Lunch:</label>
                         <div class="input-group time">
-                            <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
+                            <div class="input-group-addon"><span class="fa fa-clock-o"></span>|<span class="fa fa-cutlery"></span></div>
                             <input type="time" id="id_checkout_lunch" name="checkout_lunch" value="" data-ng-model="data.checkout_lunch" class="form-control" placeholder="hh:mm" title="Enter release checkout lunch" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             <div class="input-group-addon">hs</div>
                         </div>
@@ -36,7 +38,7 @@
                     <div class="form-group col-sm-6 content-time">
                         <label class="sr-only" for="id_checkin_lunch">Checkin Lunch:</label>
                         <div class="input-group time">
-                            <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
+                            <div class="input-group-addon"><span class="fa fa-clock-o"></span>|<span class="fa fa-cutlery"></span></div>
                             <input type="time" id="id_checkin_lunch" name="checkin_lunch" value="" data-ng-model="data.checkin_lunch" class="form-control" placeholder="hh:mm" title="Enter release checkin lunch" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
                             <div class="input-group-addon">hs</div>
                         </div>
@@ -49,8 +51,15 @@
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
-                    <div class="text-rigth">
-                        <input type="submit" value="Save" class="btn btn-primary" title="Save">
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary" title="Save">
+                            <span class="fa fa-cloud"></span>
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" title="Close modal">
+                            <span class="fa fa-times"></span>
+                            Close
+                        </button>
                     </div>
                 </form>
             </div>

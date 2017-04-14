@@ -6,17 +6,21 @@
 	<header class="page-header">
         <h2>Release - <small>Main</small></h2>
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li class="active">Release</li>
+            <li><a href="/" title="Go to home">Home</a></li>
+            <li class="active" title="Release menu (current)">Release</li>
         </ol>
     </header>
     <section class="row well">
-        <button class="btn btn-primary" data-ng-click="showForm()">
-            Insert
-        </button>
-        <button class="btn btn-default" title="Came back for last page.. defained so long">
-            Came back
-        </button>
+        <div class="text-right">
+            <button class="btn btn-primary" data-ng-click="showForm()">
+                <span class="fa fa-plus"></span>
+                Insert
+            </button>
+            <a href="/" class="btn btn-default" title="Came back for last page.. defained so long">
+                <span class="fa fa-mail-reply"></span>
+                Came back
+            </a>
+        </div>
     </section>
     <section class="row">
         <header class="alert alert-success" data-ng-show="data.success">
