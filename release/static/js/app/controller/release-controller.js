@@ -16,7 +16,7 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory) {
         });
     };
  
-    $scope.updatePointsheet = function() {
+    $scope.updateRelease = function() {
         if (!angular.isUndefined($scope.data.id))
         {
             ReleaseApi.Put($scope.data.id, ReleaseFactory.ConstructorModel($scope.data))
