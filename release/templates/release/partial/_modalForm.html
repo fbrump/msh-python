@@ -1,0 +1,29 @@
+<!-- MODEL FORM -->
+<div id="modalFormRelease" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Release</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form form-aligned" data-ng-submit="updateRelease()">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="" data-nd-bind="data.id">
+                    {# <div class="form-group">
+                        <label>Year:</label>
+                        <input type="number" id="id_year" name="year" value="" data-ng-model="data.year" class="form-control" placeholder="Year" title="Enter pointsheet year" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label>Month:</label>
+                        <input type="number" id="id_month" name="month" value="" data-ng-model="data.month" class="form-control" placeholder="Month" title="Enter pointsheet month" required="required">
+                    </div> #}
+                    <div class="text-rigth">
+                        <input type="submit" value="Save" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
