@@ -6,10 +6,9 @@ from release.models import Release
 
 
 class ReleaseSerializer(serializers.Serializer):
-
 	# class Meta:
 	# 	model = Release
- #        fields = '__all__'
+ 	#   fields = '__all__'
 	id = serializers.IntegerField(read_only=True)
 	date = serializers.DateField(format="%Y-%m-%d")
 	dayweek = serializers.ChoiceField(Release.DAY_OF_WEEK_CHOICES)

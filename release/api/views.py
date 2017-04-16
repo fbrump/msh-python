@@ -11,7 +11,6 @@ from rest_framework import generics
 from release.models import Release
 from .serializers import ReleaseSerializer
 
-@csrf_exempt
 class ReleaseList(
 	mixins.ListModelMixin,
 	mixins.CreateModelMixin,
@@ -26,6 +25,7 @@ class ReleaseList(
 
 	def post(self, request, *args, **kwargs):
 		return self.create(request, *args, **kwargs)
+
 #@csrf_exempt
 # def ReleaseList(request):
 # 	"""
@@ -52,33 +52,54 @@ class ReleaseList(
 # 			return JsonResponse(serializer.data, status=201)
 # 		return JsonResponse(serializer.errors, status=400)
 
-@csrf_exempt
-def ReleaseDetail(request, pk):
-	"""
-		Retrieve, update or delete a code snippet.
 
-		Methods:
-			GET -- Return one release
-			PUT -- Update one release
-			DELETE -- Delete one release
-	"""
-	try:
-		release = Release.objects.get(id=pk)
-	except Release.DoesNotExist:
-		return HttpResponse(status=404)
+class ReleaseDetail(
+	mixins.RetrieveModelMixin,
+	mixins.UpdateModelMixin,
+	mixins.DestroyModelMixin,
+	generics.GenericAPIView
+	):
+	queryset = Release.objects.all()
+	serializer_class = ReleaseSerializer
 
-	if request.method == 'GET':
-		serializer = ReleaseSerializer(release)
-		return JsonResponse(serializer.data)
+	def get(self, request, *args, **kwargs):
+		print('test')
+		return self.retrieve(request, *args, **kwargs)
 
-	elif request.method == 'PUT':
-		data = JSONParser().parse(request)
-		serializer = SnippetSerializer(release, data=data)
-		if serializer.is_valid():
-			serializer.save()
-			return JsonResponse(serializer.data)
-		return JsonResponse(serializer.errors, status=400)
+	def put(self, request, *args, **kwargs):
+		print('PUT in ReleaseDetail')
+		return self.update(request, *args, **kwargs)
 
-	elif request.method == 'DELETE':
-		snippet.delete()
-		return HttpResponse(status=204)
+	def delete(self, request, *args, **kwargs):
+		return self.destroy(request, *args, **kwargs)
+
+# @csrf_exempt
+# def ReleaseDetail(request, pk):
+# 	"""
+# 		Retrieve, update or delete a code snippet.
+
+# 		Methods:
+# 			GET -- Return one release
+# 			PUT -- Update one release
+# 			DELETE -- Delete one release
+# 	"""
+# 	try:
+# 		release = Release.objects.get(id=pk)
+# 	except Release.DoesNotExist:
+# 		return HttpResponse(status=404)
+
+# 	if request.method == 'GET':
+# 		serializer = ReleaseSerializer(release)
+# 		return JsonResponse(serializer.data)
+
+# 	elif request.method == 'PUT':
+# 		data = JSONParser().parse(request)
+# 		serializer = SnippetSerializer(release, data=data)
+# 		if serializer.is_valid():
+# 			serializer.save()
+# 			return JsonResponse(serializer.data)
+# 		return JsonResponse(serializer.errors, status=400)
+
+# 	elif request.method == 'DELETE':
+# 		snippet.delete()
+# 		return HttpResponse(status=204)
