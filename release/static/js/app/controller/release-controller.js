@@ -1,5 +1,5 @@
 
-myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory) {
+myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, PointsheetApi, $timeout) {
     $scope.data = { success: false };
     $scope.messageModal = { type: '', messages: [] };
 
@@ -49,16 +49,51 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory) {
     };
 
     $scope.updateForm = function (item) {
-        func_fillForm(item);
-        func_showModal();
+        func_getPointsheets();
+        $timeout(function () {
+            func_fillForm(item);
+            func_showModal();
+        }, 1000)
     };
 
     $scope.showForm = function () {
         func_cleanForm();
+        func_getPointsheets();
         func_showModal();
     };
 
-    function getReleases(){
+    $scope.changePointsheetModal = function (item) {
+        console.log(item);
+        if (!angular.isUndefined(item))
+        {
+            _r = func_getPointsheetSelected(item);
+            if (_r != null){
+                _d = new Date(_r.year, _r.month, 1);
+                $scope.data.date = formatDate(_d);
+                $('#id_date').datepicker('setDate', $scope.data.date);
+            }
+        }else{
+            console.log('Selected empty item (SELECT)');
+        }
+    };
+
+    var func_getPointsheetSelected = function (item) {
+        _register = $scope.pointsheets.filter(function(el) {
+            return el.id==item;
+        });
+        if (_register.length==0){
+            _register = null;
+            console.log('not exist')
+        }else{
+            _register = _register[0];
+            console.log('exist')
+        }
+        console.log(_register);
+        console.log('selcted one existent item');
+        return _register;
+    };
+
+    var getReleases = function (){
         ReleaseApi.Get()
         .success(function(data, status, headers, config) {
             $scope.data.list = data;
@@ -69,10 +104,11 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory) {
     };
 
     var func_showModal = function () {
-        $('#modalFormRelease').on('shown.bs.modal', function () {
-            $('#id_year').focus();
+        var _model = $('#modalFormRelease');
+        _model.on('shown.bs.modal', function () {
+            $("#id_pointsheet").focus();
         });
-        $('#modalFormRelease').modal();
+        _model.modal();
     };
 
     var func_closeModal = function () {
@@ -119,6 +155,16 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory) {
         else
             $scope.messageModal.type = 'success';
         $scope.messageModal.messages.push(message);
+    };
+
+    var func_getPointsheets = function (){
+        PointsheetApi.Get()
+        .success(function(data, status, headers, config) {
+            $scope.pointsheets = data;
+        })
+        .error(function(e) {
+            console.error(e);
+        });
     };
 
     // Load page

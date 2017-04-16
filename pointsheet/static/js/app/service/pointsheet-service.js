@@ -1,4 +1,4 @@
-var myServiceModule = angular.module('MyServices', []);
+// app/service/pointsheet-service.js
 
 myServiceModule.service('PointsheetApi', ['$http', function($http){
 	var globals = { pointsheetsUrl: '/pointsheets/' };

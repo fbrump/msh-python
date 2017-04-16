@@ -1,4 +1,4 @@
-var myFactoryModule = angular.module('MyFactories', []);
+// app/controller/release-factory.js
 
 myFactoryModule.factory('ReleaseFactory', [function () {
 

@@ -1,4 +1,4 @@
-var myFactoryModule = angular.module('MyFactories', []);
+// app/controller/pointsheet-factory.js
 
 myFactoryModule.factory('PointsheetFactory', [function () {
 

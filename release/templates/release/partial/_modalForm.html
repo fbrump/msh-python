@@ -14,7 +14,7 @@
                     <input type="hidden" name="id" value="" data-nd-bind="data.id">
                     <div class="form-group col-sm-12">
                         <label>Pointsheet:</label>
-                        <select name="" id="" class="form-control">
+                        <select name="" id="id_pointsheet" name="pointsheet" required="required" class="form-control" data-ng-options="item.id as (item.year + '/' + item.month) for item in pointsheets" data-ng-model="data.pointsheet" autofocus="autofocus" data-ng-change="changePointsheetModal(data.pointsheet)">
                             <option value="">Select</option>
                         </select>
                     </div>
