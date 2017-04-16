@@ -5,31 +5,52 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework import mixins
+from rest_framework import generics
 
 from release.models import Release
 from .serializers import ReleaseSerializer
 
 @csrf_exempt
-def ReleaseList(request):
-	"""
-		List all code releases, or create a new release.
+class ReleaseList(
+	mixins.ListModelMixin,
+	mixins.CreateModelMixin,
+	generics.GenericAPIView
+	):
+	"""docstring for PointsheetList"""
+	queryset = Release.objects.all()
+	serializer_class = ReleaseSerializer
 
-		Methods:
-			GET -- Return all releases
-			POST -- Insert new release
-	"""
-	if request.method == 'GET':
-		release = Release.objects.all()
-		serializer = ReleaseSerializer(release, many=True)
-		return JsonResponse(serializer.data, safe=False)
+	def get(self, request, *args, **kwargs):
+		return self.list(request, *args, **kwargs)
 
-	elif request.method == 'POST':
-		data = JSONParser().parse(request)
-		serializer = ReleaseSerializer(data=data)
-		if serializer.is_valid():
-			serializer.save()
-			return JsonResponse(serializer.data, status=201)
-		return JsonResponse(serializer.errors, status=400)
+	def post(self, request, *args, **kwargs):
+		return self.create(request, *args, **kwargs)
+#@csrf_exempt
+# def ReleaseList(request):
+# 	"""
+# 		List all code releases, or create a new release.
+
+# 		Methods:
+# 			GET -- Return all releases
+# 			POST -- Insert new release
+# 	"""
+# 	if request.method == 'GET':
+# 		release = Release.objects.all()
+# 		serializer = ReleaseSerializer(release, many=True)
+# 		return JsonResponse(serializer.data, safe=False)
+
+# 	elif request.method == 'POST':
+# 		print('POST -- method')
+# 		print(request.data)
+# 		data = JSONParser().parse(request)
+# 		print('json data ---')
+# 		print(data)
+# 		serializer = ReleaseSerializer(data=data)
+# 		if serializer.is_valid():
+# 			serializer.save()
+# 			return JsonResponse(serializer.data, status=201)
+# 		return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
 def ReleaseDetail(request, pk):
