@@ -5,21 +5,31 @@ from rest_framework import serializers
 from release.models import Release
 
 
-class ReleaseSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Release
-        fields = '__all__'
-	# id = serializers.IntegerField(read_only=True)
-	# date = serializers.DateField(format="%Y-%m-%d") #%H:%M:%S
-	# dayweek = serializers.ChoiceField(Release.DAY_OF_WEEK_CHOICES)
-	# checkin = serializers.TimeField(format='%H:%M:%S')
-	# def create(self, validated_data):
-	# 	return Pointsheet.objects.create(**validated_data)
-	# def update(self, instance, validated_data):
-	# 	instance.year = validated_data.get('year', instance.year)
-	# 	instance.month = validated_data.get('month', instance.month)
-	# 	instance.save()
-	# 	return instance()
-    # class Meta:
-    # 	model = Pointsheet
-    # 	fields = ('id', 'year', 'month', )
+class ReleaseSerializer(serializers.Serializer):
+
+	# class Meta:
+	# 	model = Release
+ #        fields = '__all__'
+	id = serializers.IntegerField(read_only=True)
+	date = serializers.DateField(format="%Y-%m-%d")
+	dayweek = serializers.ChoiceField(Release.DAY_OF_WEEK_CHOICES)
+	checkin = serializers.TimeField(format='%H:%M:%S')
+	checkout_lunch = serializers.TimeField(format='%H:%M:%S')
+	checkin_lunch = serializers.TimeField(format='%H:%M:%S')
+	checkout = serializers.TimeField(format='%H:%M:%S')
+	is_holiday = serializers.BooleanField(required=False)
+	def create(self, validated_data):
+		return Release.objects.create(**validated_data)
+	def update(self, instance, validated_data):
+		instance.date = validated_date.get('date', instance.date)
+		instance.dayweek = validated_data.get('dayweek', instance.dayweek)
+		instance.checkin = validated_data.get('checkin', instance.checkin)
+		instance.checkout_lunch = validated_data.get('checkout_lunch', instance.checkout_lunch)
+		instance.checkin_lunch = validated_data.get('checkin_lunch', instance.checkin_lunch)
+		instance.checkout = validated_data.get('checkout', instance.checkout)
+		instance.is_holiday = validated_data.get('is_holiday', instance.is_holiday)
+		instance.save()
+		return instance()
+	# class Meta:
+	# 	model = Pointsheet
+	# 	fields = ('id', 'year', 'month', )
