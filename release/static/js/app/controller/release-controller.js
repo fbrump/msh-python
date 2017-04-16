@@ -31,6 +31,10 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory) {
             });
 
         } else {
+            // REMOVED LATER
+            $scope.data.dayweek = 'THU';
+            $scope.data.is_holiday = false;
+            $scope.data.pointsheet = { id: 11, year:2017, month: 1 }; // POINTSHEET
             ReleaseApi.Post(ReleaseFactory.ConstructorModel($scope.data))
             .success(function(data, status, headers, config) {
                 $scope.data['success'] = true;

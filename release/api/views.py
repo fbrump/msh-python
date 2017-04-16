@@ -24,6 +24,8 @@ class ReleaseList(
 		return self.list(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
+		print('POST -- ReleaseList')
+		print(request)
 		return self.create(request, *args, **kwargs)
 
 #@csrf_exempt
