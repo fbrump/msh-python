@@ -8,9 +8,24 @@ from pointsheet.serializers import PointsheetSerializer
 
 
 class ReleaseSerializer(serializers.Serializer):
-	# class Meta:
-	# 	model = Release
- 	#   fields = '__all__'
+	"""
+		Class that mapping serializer Release Model
+
+		Properties:
+			id --
+			date --
+			dayweek --
+			checkin --
+			checkout lunch --
+			checkin lunch --
+			checkout --
+			is_holiday --
+			pointsheet --
+			
+		Methods:
+			create --
+			update --
+	"""
 	id = serializers.IntegerField(read_only=True)
 	date = serializers.DateField(format="%Y-%m-%d")
 	dayweek = serializers.ChoiceField(Release.DAY_OF_WEEK_CHOICES)
@@ -21,6 +36,9 @@ class ReleaseSerializer(serializers.Serializer):
 	is_holiday = serializers.BooleanField(required=False)
 	pointsheet = PointsheetSerializer(many=False)
 	def create(self, validated_data):
+		"""
+			Method for insert new item on database
+		"""
 		_serializePointsheet = PointsheetSerializer(validated_data.pop('pointsheet'))
 		_pointsheet = Pointsheet.objects.get(
 			year=_serializePointsheet.data['year'],
@@ -28,6 +46,9 @@ class ReleaseSerializer(serializers.Serializer):
 		validated_data['pointsheet'] = _pointsheet
 		return Release.objects.create(**validated_data)
 	def update(self, instance, validated_data):
+		"""
+			Method for update one instance of the database Release
+		"""
 		instance.date = validated_date.get('date', instance.date)
 		instance.dayweek = validated_data.get('dayweek', instance.dayweek)
 		instance.checkin = validated_data.get('checkin', instance.checkin)
