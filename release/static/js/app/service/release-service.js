@@ -1,4 +1,4 @@
-var myServiceModule = angular.module('MyServices', []);
+// app/service/release-service.js
 
 myServiceModule.service('ReleaseApi', ['$http', function($http){
 	var globals = { URL: '/api/releases/' };

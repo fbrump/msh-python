@@ -10,6 +10,11 @@ myApp.config(['$httpProvider', '$interpolateProvider',
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
 }]);
 
+// FACTORY MODULE
+var myFactoryModule = angular.module('MyFactories', []);
+// SERVICE MODULE
+var myServiceModule = angular.module('MyServices', []);
+
 // using jQuery
 function getCookie(name) {
     var cookieValue = null;
@@ -27,3 +32,15 @@ function getCookie(name) {
     return cookieValue;
 }
 //var csrftoken = getCookie('csrftoken');
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth()),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+};
