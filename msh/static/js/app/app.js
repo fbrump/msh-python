@@ -44,3 +44,27 @@ function formatDate(date) {
 
     return [year, month, day].join('-');
 };
+
+/**
+ * Method that retorn of Day of week from datepicker.
+ * @param  {Datepicker element} element Date element (with datepicker)
+ * @return {String}         Key of day of week.
+ */
+function getDayWeek(element) {
+    var date = $(element).datepicker('getDate');
+    var dayOfWeek = date.getUTCDay();
+    if (dayOfWeek == 1)
+        return 'MON';
+    else if (dayweek == 2)
+        return 'TUE';
+    else if (dayweek == 3)
+        return 'WED';
+    else if (dayweek == 4)
+        return 'THU';
+    else if (dayweek == 5)
+        return 'FRI';
+    else if (dayweek == 6)
+        return 'SAT';
+    else //if (dayweek == 7)
+        return 'SUN';
+}

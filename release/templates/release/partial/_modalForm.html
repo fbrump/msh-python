@@ -9,14 +9,29 @@
                 <h4 class="modal-title">Release</h4>
             </div>
             <div class="modal-body">
+                <header class="alert alert-danger" data-ng-show="data.model.error">
+                    <b>Error!</b>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p data-ng-bind="data.model.message"></p>
+                </header>
                 <form class="form form-aligned" data-ng-submit="updateRelease()">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="" data-nd-bind="data.id">
-                    <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-6">
                         <label>Pointsheet:</label>
-                        <select name="" id="id_pointsheet" name="pointsheet" required="required" class="form-control" data-ng-options="item.id as (item.year + '/' + item.month) for item in pointsheets" data-ng-model="data.pointsheet" autofocus="autofocus" data-ng-change="changePointsheetModal(data.pointsheet)">
+                        <select name="" id="id_pointsheet" name="pointsheet_id" required="required" class="form-control" data-ng-options="item.id as (item.year + '/' + item.month) for item in pointsheets" data-ng-model="data.pointsheet_id" autofocus="autofocus" data-ng-change="changePointsheetModal(data.pointsheet_id)">
                             <option value="">Select</option>
                         </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="sr-only">Is holiday:</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="is_holiday" id="id_is_holiday" data-ng-model="data.is_holiday" data-ng-checked="data.is_holiday" title="Is holiday or not" /> Is Holiday
+                            </label>
+                        </div>
                     </div>
                     <div class="form-group col-sm-12 content-date">
                         <label>Date:</label>

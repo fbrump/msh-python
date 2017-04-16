@@ -1,7 +1,11 @@
 
 myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, PointsheetApi, $timeout) {
-    $scope.data = { success: false };
     $scope.messageModal = { type: '', messages: [] };
+    $scope.data = {
+        model: { error:false, message:'' },
+        success: false,
+        is_holiday: false
+    }
 
     $scope.removeRelease = function(release){
         ReleaseApi.Delete(release.id)
@@ -32,19 +36,24 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
 
         } else {
             // REMOVED LATER
-            $scope.data.dayweek = 'THU';
-            $scope.data.is_holiday = false;
-            $scope.data.pointsheet = { id: 11, year:2017, month: 1 }; // POINTSHEET
-            ReleaseApi.Post(ReleaseFactory.ConstructorModel($scope.data))
-            .success(function(data, status, headers, config) {
-                $scope.data['success'] = true;
-                getReleases();
-                func_closeModal();
-            })
-            .error(function(data, status, headers, config) {
-                console.error(data);
-                $scope.data['success'] = false;
-            });
+            $scope.data.dayweek = getDayWeek($('#id_date'));
+            var _ps = func_getPointsheetSelected($scope.data.pointsheet_id);
+            if (_ps != null){
+                $scope.data.pointsheet = _ps;
+                ReleaseApi.Post(ReleaseFactory.ConstructorModel(data))
+                .success(function(data, status, headers, config) {
+                    $scope.data['success'] = true;
+                    getReleases();
+                    func_closeModal();
+                })
+                .error(function(data, status, headers, config) {
+                    console.error(data);
+                    $scope.data['success'] = false;
+                });
+            }
+            else {
+                func_messageModal(true, 'Pointsheet is required');
+            }
         }
     };
 
@@ -104,6 +113,7 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
     };
 
     var func_showModal = function () {
+        func_messageModal(false, null);
         var _model = $('#modalFormRelease');
         _model.on('shown.bs.modal', function () {
             $("#id_pointsheet").focus();
@@ -165,6 +175,14 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
         .error(function(e) {
             console.error(e);
         });
+    };
+
+    var func_messageModal = function(show, message){
+        $scope.data.model.error = show;
+        if (show == true){
+            $scope.data.model.message = message;
+            console.error(message);
+        }
     };
 
     // Load page
