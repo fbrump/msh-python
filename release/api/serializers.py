@@ -3,6 +3,8 @@
 
 from rest_framework import serializers
 from release.models import Release
+from pointsheet.models import Pointsheet
+from pointsheet.serializers import PointsheetSerializer
 
 
 class ReleaseSerializer(serializers.Serializer):
@@ -17,7 +19,13 @@ class ReleaseSerializer(serializers.Serializer):
 	checkin_lunch = serializers.TimeField(format='%H:%M:%S')
 	checkout = serializers.TimeField(format='%H:%M:%S')
 	is_holiday = serializers.BooleanField(required=False)
+	pointsheet = PointsheetSerializer(many=False)
 	def create(self, validated_data):
+		_serializePointsheet = PointsheetSerializer(validated_data.pop('pointsheet'))
+		_pointsheet = Pointsheet.objects.get(
+			year=_serializePointsheet.data['year'],
+			month=_serializePointsheet.data['month'])
+		validated_data['pointsheet'] = _pointsheet
 		return Release.objects.create(**validated_data)
 	def update(self, instance, validated_data):
 		instance.date = validated_date.get('date', instance.date)
