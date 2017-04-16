@@ -16,44 +16,28 @@ class ReleaseList(
 	mixins.CreateModelMixin,
 	generics.GenericAPIView
 	):
-	"""docstring for PointsheetList"""
+	"""
+		Release List -- View for API List
+		Methods:
+			GET -- Lista all itens
+			POST -- insert new item
+	"""
 	queryset = Release.objects.all()
 	serializer_class = ReleaseSerializer
 
 	def get(self, request, *args, **kwargs):
+		"""
+			METHOD GET: Return all itens.
+		"""
 		return self.list(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
+		"""
+			METHOD POST: Insert new item.
+		"""
 		print('POST -- ReleaseList')
 		print(request)
 		return self.create(request, *args, **kwargs)
-
-#@csrf_exempt
-# def ReleaseList(request):
-# 	"""
-# 		List all code releases, or create a new release.
-
-# 		Methods:
-# 			GET -- Return all releases
-# 			POST -- Insert new release
-# 	"""
-# 	if request.method == 'GET':
-# 		release = Release.objects.all()
-# 		serializer = ReleaseSerializer(release, many=True)
-# 		return JsonResponse(serializer.data, safe=False)
-
-# 	elif request.method == 'POST':
-# 		print('POST -- method')
-# 		print(request.data)
-# 		data = JSONParser().parse(request)
-# 		print('json data ---')
-# 		print(data)
-# 		serializer = ReleaseSerializer(data=data)
-# 		if serializer.is_valid():
-# 			serializer.save()
-# 			return JsonResponse(serializer.data, status=201)
-# 		return JsonResponse(serializer.errors, status=400)
-
 
 class ReleaseDetail(
 	mixins.RetrieveModelMixin,
@@ -61,47 +45,30 @@ class ReleaseDetail(
 	mixins.DestroyModelMixin,
 	generics.GenericAPIView
 	):
+	"""
+		Release details -- View for work details
+		Methods:
+			GET -- Get one item
+			PUT -- Update one item
+			DELETE -- Remove one item
+	"""
 	queryset = Release.objects.all()
 	serializer_class = ReleaseSerializer
 
 	def get(self, request, *args, **kwargs):
-		print('test')
+		"""
+			METHOD GET: Return one item.
+		"""
 		return self.retrieve(request, *args, **kwargs)
 
 	def put(self, request, *args, **kwargs):
-		print('PUT in ReleaseDetail')
+		"""
+			METHOD PUT: Update one item.
+		"""
 		return self.update(request, *args, **kwargs)
 
 	def delete(self, request, *args, **kwargs):
+		"""
+			METHOD DELETE: Remove one item from database.
+		"""
 		return self.destroy(request, *args, **kwargs)
-
-# @csrf_exempt
-# def ReleaseDetail(request, pk):
-# 	"""
-# 		Retrieve, update or delete a code snippet.
-
-# 		Methods:
-# 			GET -- Return one release
-# 			PUT -- Update one release
-# 			DELETE -- Delete one release
-# 	"""
-# 	try:
-# 		release = Release.objects.get(id=pk)
-# 	except Release.DoesNotExist:
-# 		return HttpResponse(status=404)
-
-# 	if request.method == 'GET':
-# 		serializer = ReleaseSerializer(release)
-# 		return JsonResponse(serializer.data)
-
-# 	elif request.method == 'PUT':
-# 		data = JSONParser().parse(request)
-# 		serializer = SnippetSerializer(release, data=data)
-# 		if serializer.is_valid():
-# 			serializer.save()
-# 			return JsonResponse(serializer.data)
-# 		return JsonResponse(serializer.errors, status=400)
-
-# 	elif request.method == 'DELETE':
-# 		snippet.delete()
-# 		return HttpResponse(status=204)
