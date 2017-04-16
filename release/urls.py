@@ -8,8 +8,8 @@ from . import views
 from release.api import views as api_views
 
 urlpatterns = [
-	url(r'^api/releases/$', api_views.ReleaseList),
-    url(r'^api/releases/(?P<pk>[0-9]+)/$', api_views.ReleaseDetail),
+	url(r'^api/releases/$', api_views.ReleaseList.as_view(), name='releases'),
+    url(r'^api/releases/(?P<pk>[0-9]+)/$', api_views.ReleaseDetail.as_view(), name='releases_detail'),
 	url(r'^release/$', views.ReleaseView.as_view(), name='release'),
 	]
 
