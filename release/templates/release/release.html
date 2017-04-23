@@ -51,7 +51,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr data-ng-repeat="item in data.list" data-ng-class="{ 'info':item.is_holiday }">
+                    <tr data-ng-repeat="item in data.list" data-ng-class="{ 'info':item.is_holiday, 'warning': item.type_absence!=null }">
                         <td class="text-center" data-ng-bind="item.date | date:'yyyy-MM-dd' "></td>
                         <td class="text-center" data-ng-bind="item.dayweek "></td>
                         <td class="text-center" data-ng-bind="item.checkin | formatHour "></td>
