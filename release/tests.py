@@ -18,10 +18,10 @@ from rest_framework.parsers import JSONParser
 class ReleaseTest(unittest.TestCase):
 	"""docstring for ReleaseTest"""
 	def setUp(self):
-		print('>>>> SET UP')
+		# print('>>>> SET UP')
 		self.create_pointsheet_valid()
 	def tearDown(self):
-		print('>>>> TEAR DOWN')
+		# print('>>>> TEAR DOWN')
 		self.delete_pointsheet_valid()
 	## PRIVATES METHODS
 	#@classmethod
@@ -75,7 +75,7 @@ class ReleaseTest(unittest.TestCase):
 			Description -- : Teste if create new release is correct or not
 			Senario ------ : One pointsheet for one release
 		"""
-		print('test_create_new_release')
+		# print('test_create_new_release')
 		# Arrange
 		
 		pointsheet = self.get_pointsheet_valid()
@@ -91,7 +91,7 @@ class ReleaseTest(unittest.TestCase):
 			Description -- : Teste if create new release is correct or not when have multiples inserts and work on weekends
 			Senario ------ : One pointsheet for multiples releases
 		"""
-		print('test_create_new_release_multiples')
+		# print('test_create_new_release_multiples')
 		# Arrange
 		pointsheet = self.get_pointsheet_valid()
 		
@@ -114,7 +114,7 @@ class ReleaseTest(unittest.TestCase):
 			Description -- : Teste if create new release is correct or not when have multiples inserts and work on weekends
 			Senario ------ : One pointsheet for multiples releases (many differents)
 		"""
-		print('test_create_new_release_multiples_with_weekend_work')
+		# print('test_create_new_release_multiples_with_weekend_work')
 		# Arrange
 		pointsheet = self.get_pointsheet_valid()
 
@@ -141,7 +141,7 @@ class ReleaseTest(unittest.TestCase):
 			Description -- : Teste if create new release is correct or not
 			Senario ------ : One pointsheet for one release
 		"""
-		print('test_delete_one_release')
+		# print('test_delete_one_release')
 		# Arrange
 		pointsheet = self.get_pointsheet_valid()
 		self.create_basic_release_weeekend_work_without_lunch(datetime.date(2016, 12, 10), Release.SATURDAY, pointsheet)
@@ -158,7 +158,7 @@ class ReleaseTest(unittest.TestCase):
 			Description -- : Teste if create new release is correct or not
 			Senario ------ : One pointsheet for one release
 		"""
-		print('test_delete_one_release')
+		# print('test_delete_one_release')
 		# Arrange
 		pointsheet = self.get_pointsheet_valid()
 		self.create_basic_release_weeekend_work_without_lunch(datetime.date(2016, 12, 10), Release.SATURDAY, pointsheet)
@@ -174,29 +174,42 @@ class ReleaseTest(unittest.TestCase):
 
 class ReleaseSerializeTest(unittest.TestCase):
 	def setUp(self):
-		print('>>>> SET UP - SERIALIZER')
+		"""
+			Method define enviroment for testing, executed behind method
+		"""
+		# print('>>>> SET UP - SERIALIZER')
 		self.create_pointsheet_valid()
 	def tearDown(self):
-		print('>>>> TEAR DOWN - SERIALIZER')
+		"""
+			Method clear enviroment for testing, executed after method
+		"""
+		# print('>>>> TEAR DOWN - SERIALIZER')
 		self.delete_pointsheet_valid()
 	def create_pointsheet_valid(self):
 		"""
+			Mehtod that create one pointsheet valid
 		"""
 		Pointsheet.objects.create(year=2017, month=02)
 	def get_pointsheet_valid(self):
 		"""
+			Method that get one pointsheet valid
 		"""
 		return Pointsheet.objects.get(year=2017, month=02)
 	def delete_pointsheet_valid(self):
 		"""
+			Method that deleted one pointsheet valid
 		"""
 		Pointsheet.objects.filter(year=2017, month=02).delete()
 	def get_release_normaly(self):
+		"""
+			Method that get a release normaly day
+			Keyword arguments:
+		"""
 		return {
 			u'checkin_lunch': u'13:00', 
 			u'checkin_absence': None, 
 			u'type_absence': None, 
-			u'dayweek': Release.THUSDAY, 
+			u'dayweek': Release.WEDNESDAY, 
 			u'file_link': None, 
 			u'checkin': u'09:00:00', 
 			u'checkout_lunch': None, 
@@ -207,12 +220,25 @@ class ReleaseSerializeTest(unittest.TestCase):
 			u'justification_absence': None, 
 			u'checkout': u'18:00:00',
 		}
+	def get_release_is_holiday_off_work(self):
+		"""
+			Method that get a release for holiday when dont work (off)
+		"""
+		return {
+			u'dayweek': Release.THUSDAY, 
+			u'pointsheet': self.get_pointsheet_valid(), 
+			u'checkin': u'09:00', 
+			u'checkout': u'18:00',
+			u'is_holiday': True, 
+			u'date': u'2017-02-02'
+		}
+
 	def test_create_release_serialze(self):
 		"""
 			Description -- : Teste if create new release is correct or not
 			Senario ------ : One pointsheet for one release
 		"""
-		print('test_create_release_serialze')
+		# print('test_create_release_serialze')
 		# Arrange
 		factory = APIRequestFactory()
 		_data = {
@@ -238,13 +264,14 @@ class ReleaseSerializeTest(unittest.TestCase):
 		self.assertIsNotNone(request)
 	
 	def test_serialize_insert_release_normaly(self):
+		"""
+			Unittest for testing one insert a normaly day serializer
+		"""
+		# print('test_serialize_insert_release_normaly')
 		# Arrange
 		data = self.get_release_normaly()
 		serializer = ReleaseSerializer(data=data)
-		if (serializer.is_valid()):
-			print('Serializer is valid...')
-		else:
-			print('Serializer is NOT valid...')
+		serializer.is_valid()
 		#Act
 		serializer.create(serializer.data)
 		_count = len(Release.objects.all())
@@ -252,3 +279,24 @@ class ReleaseSerializeTest(unittest.TestCase):
 		#Assert
 		self.assertTrue(_count, 1)
 		self.assertIsNotNone(_item_added)
+		self.assertEqual(_item_added.date, datetime.date(2017, 02, 01))
+		self.assertTrue(_item_added.id > 0)
+
+	def test_serialize_insert_release_holiday_off_without(self):
+		"""
+			Unittest for testing one insert a holiday without work
+		"""
+		# print('test_serialize_insert_release_holiday_off_without')
+		# Arrange
+		data = self.get_release_is_holiday_off_work()
+		serializer = ReleaseSerializer(data=data)
+		serializer.is_valid()
+		#Act
+		serializer.create(serializer.data)
+		_count = len(Release.objects.all())
+		_item_added = Release.objects.get(pointsheet=self.get_pointsheet_valid(), date=data.get('date'), dayweek=data.get('dayweek'))
+		#Assert
+		self.assertTrue(_count, 1)
+		self.assertIsNotNone(_item_added)
+		self.assertEqual(_item_added.date, datetime.date(2017, 02, 02))
+		self.assertTrue(_item_added.id > 0)
