@@ -7,8 +7,8 @@ myFactoryModule.factory('ReleaseFactory', [function () {
 			date: form['date'],
 			dayweek: form['dayweek'],
 			checkin: form['checkin'],
-			checkout_lunch: form['checkout_lunch'],
-			checkin_lunch: form['checkin_lunch'],
+			checkout_lunch: _TreatEmpty(form['checkout_lunch']),
+			checkin_lunch: _TreatEmpty(form['checkin_lunch']),
 			checkout: form['checkout'],
 			is_holiday: form['is_holiday'],
 			type_absence: form['type_absence'],
@@ -18,6 +18,20 @@ myFactoryModule.factory('ReleaseFactory', [function () {
 			file_link: form['file_link'],
 			pointsheet: form['pointsheet']
 		};
+	}
+
+	/**
+	 * Method that treat property when is allow NULL value.
+	 * @param  {String} text value/data/text
+	 * @return {Object}      null or text;
+	 */
+	var _TreatEmpty = function (text) {
+		if (text === null || text === undefined || text === '' || text === 0 || text === false){
+			return null;
+		}
+		else{
+			return text;
+		}
 	}
 	return {
 		ConstructorModel: _ConstructorModel

@@ -68,15 +68,15 @@ function getDayWeek(element) {
     var dayOfWeek = date.getUTCDay();
     if (dayOfWeek == 1)
         return 'MON';
-    else if (dayweek == 2)
+    else if (dayOfWeek == 2)
         return 'TUE';
-    else if (dayweek == 3)
+    else if (dayOfWeek == 3)
         return 'WED';
-    else if (dayweek == 4)
+    else if (dayOfWeek == 4)
         return 'THU';
-    else if (dayweek == 5)
+    else if (dayOfWeek == 5)
         return 'FRI';
-    else if (dayweek == 6)
+    else if (dayOfWeek == 6)
         return 'SAT';
     else //if (dayweek == 7)
         return 'SUN';

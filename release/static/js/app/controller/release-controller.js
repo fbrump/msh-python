@@ -35,12 +35,11 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
             });
 
         } else {
-            // REMOVED LATER
             $scope.data.dayweek = getDayWeek($('#id_date'));
             var _ps = func_getPointsheetSelected($scope.data.pointsheet_id);
             if (_ps != null){
                 $scope.data.pointsheet = _ps;
-                ReleaseApi.Post(ReleaseFactory.ConstructorModel(data))
+                ReleaseApi.Post(ReleaseFactory.ConstructorModel($scope.data))
                 .success(function(data, status, headers, config) {
                     $scope.data['success'] = true;
                     getReleases();

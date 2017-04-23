@@ -39,24 +39,33 @@
                         <th class="text-center">Check-out lunch</th>
                         <th class="text-center">Check-in lunch</th>
                         <th class="text-center">Check-out</th>
+                        <th class="text-center">Info</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             <em>Rown <strong ng-bind="data.list.length"></strong></em>
                         </td>
                     </tr>
                 </tfoot>
-                <tbody data-ng-repeat="item in data.list">
-                    <tr>
+                <tbody>
+                    <tr data-ng-repeat="item in data.list" data-ng-class="{ 'info':item.is_holiday }">
                         <td class="text-center" data-ng-bind="item.date | date:'yyyy-MM-dd' "></td>
                         <td class="text-center" data-ng-bind="item.dayweek "></td>
                         <td class="text-center" data-ng-bind="item.checkin | formatHour "></td>
                         <td class="text-center" data-ng-bind="item.checkout_lunch | formatHour "></td>
                         <td class="text-center" data-ng-bind="item.checkin_lunch | formatHour "></td>
                         <td class="text-center" data-ng-bind="item.checkout | formatHour"></td>
+                        <td class="text-center">
+                            <abbr data-ng-if="item.is_holiday" title="Is holiday">
+                                <span class="fa fa-info"></span>
+                            </abbr>
+                            <abbr data-ng-if="item.type_absence != null" title="Have any absence">
+                                <span class="fa fa-info"></span>
+                            </abbr>
+                        </td>
                         <td class="text-center">
                             <a href="#editar" class="btn btn-info" data-ng-click="updateForm(item)" title="Edit informations for release">
                                 <input type="hidden" name="" value="" data-ng-bind="item.id">
