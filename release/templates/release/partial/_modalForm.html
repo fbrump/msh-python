@@ -19,13 +19,13 @@
                 <form class="form form-aligned" data-ng-submit="updateRelease()">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="" data-nd-bind="data.id">
-                    <div class="form-group col-sm-6">
+                    <div class="form-group">
                         <label>Pointsheet:</label>
                         <select name="" id="id_pointsheet" name="pointsheet_id" required="required" class="form-control" data-ng-options="item.id as (item.year + '/' + item.month) for item in pointsheets" data-ng-model="data.pointsheet_id" autofocus="autofocus" data-ng-change="changePointsheetModal(data.pointsheet_id)">
                             <option value="">Select</option>
                         </select>
                     </div>
-                    <div class="form-group col-sm-6">
+                    <div class="form-group">
                         <label class="sr-only">Is holiday:</label>
                         <div class="checkbox">
                             <label>
@@ -33,14 +33,14 @@
                             </label>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12 content-date">
+                    <div class="form-group content-date">
                         <label>Date:</label>
                         <div class="input-group date" title="Enter release date">
                             <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
                             <input type="date" id="id_date" name="date" value="" data-ng-model="data.date" class="form-control" placeholder="yyyy-mm-dd" required="required" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="2016-06-01">
                         </div>
                     </div>
-                    <div class="form-group col-sm-6 content-time">
+                    <div class="form-group content-time">
                         <label class="sr-only" for="id_checkin">Checkin:</label>
                         <div class="input-group time" title="Enter release checkin">
                             <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
@@ -48,7 +48,7 @@
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
-                    <div class="form-group col-sm-6 content-time">
+                    <div class="form-group content-time">
                         <label class="sr-only" for="id_checkout_lunch">Checkout Lunch:</label>
                         <div class="input-group time" title="Enter release checkout lunch">
                             <div class="input-group-addon"><span class="fa fa-cutlery"></span></div>
@@ -56,7 +56,7 @@
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
-                    <div class="form-group col-sm-6 content-time">
+                    <div class="form-group content-time">
                         <label class="sr-only" for="id_checkin_lunch">Checkin Lunch:</label>
                         <div class="input-group time" title="Enter release checkin lunch">
                             <div class="input-group-addon"><span class="fa fa-cutlery"></span></div>
@@ -64,7 +64,7 @@
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
-                    <div class="form-group col-sm-6 content-time">
+                    <div class="form-group content-time">
                         <label class="sr-only" for="id_checkin_lunch">Checkout:</label>
                         <div class="input-group time" title="Enter release checkout">
                             <div class="input-group-addon"><span class="fa fa-clock-o"></span></div>
@@ -72,18 +72,22 @@
                             <div class="input-group-addon">hs</div>
                         </div>
                     </div>
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-primary" title="Save">
-                            <span class="fa fa-cloud"></span>
-                            Save
-                        </button>
+                    <div class="text-right form-group">
                         <button type="button" class="btn btn-default" data-dismiss="modal" title="Close modal">
                             <span class="fa fa-times"></span>
                             Close
                         </button>
+                        <button type="submit" class="btn btn-primary" title="Save">
+                            <span class="fa fa-cloud"></span>
+                            Save
+                        </button>
                     </div>
                 </form>
             </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>-->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>

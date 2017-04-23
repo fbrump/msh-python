@@ -10,6 +10,19 @@ myApp.config(['$httpProvider', '$interpolateProvider',
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
 }]);
 
+myApp.filter('formatHour', function () {
+    return function function_name(input) {
+        var _time_formated = '';
+        if (angular.isUndefined(input) || input == null)
+            return null;
+        else{
+            var _arr = input.split(':');
+            _time_formated = _arr[0] + ':' + _arr[1]
+        }
+        return _time_formated;
+    }
+});
+
 // FACTORY MODULE
 var myFactoryModule = angular.module('MyFactories', []);
 // SERVICE MODULE
