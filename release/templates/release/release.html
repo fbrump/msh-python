@@ -33,13 +33,13 @@
             <table class="table table-striped table-bordered table-hover table-condensed" data-ng-if="data.list.length > 0">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th><abbr title="Day of Week">D.W.</abbr></th>
-                        <th>Check-in</th>
-                        <th>Check-out lunch</th>
-                        <th>Check-in lunch</th>
-                        <th>Check-out</th>
-                        <th>Action</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center"><abbr title="Day of Week">D.W.</abbr></th>
+                        <th class="text-center">Check-in</th>
+                        <th class="text-center">Check-out lunch</th>
+                        <th class="text-center">Check-in lunch</th>
+                        <th class="text-center">Check-out</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -51,19 +51,21 @@
                 </tfoot>
                 <tbody data-ng-repeat="item in data.list">
                     <tr>
-                        <td data-ng-bind="item.date"></td>
-                        <td data-ng-bind="item.dayweek"></td>
-                        <td data-ng-bind="item.checkin"></td>
-                        <td data-ng-bind="item.checkout_lunch"></td>
-                        <td data-ng-bind="item.checkin_lunch"></td>
-                        <td data-ng-bind="item.checkout"></td>
-                        <td>
-                            <a href="#editar" class="btn btn-info" data-ng-click="updateForm(item)">
+                        <td class="text-center" data-ng-bind="item.date | date:'yyyy-MM-dd' "></td>
+                        <td class="text-center" data-ng-bind="item.dayweek "></td>
+                        <td class="text-center" data-ng-bind="item.checkin | formatHour "></td>
+                        <td class="text-center" data-ng-bind="item.checkout_lunch | formatHour "></td>
+                        <td class="text-center" data-ng-bind="item.checkin_lunch | formatHour "></td>
+                        <td class="text-center" data-ng-bind="item.checkout | formatHour"></td>
+                        <td class="text-center">
+                            <a href="#editar" class="btn btn-info" data-ng-click="updateForm(item)" title="Edit informations for release">
                                 <input type="hidden" name="" value="" data-ng-bind="item.id">
+                                <span class="fa fa-edit"></span>
                                 Edit
                             </a>
-                            <a href="#remove" class="btn btn-danger" data-ng-click="removePointsheet(item)">
+                            <a href="#remove" class="btn btn-danger" data-ng-click="removePointsheet(item)" title="Remove release">
                                 <input type="hidden" name="" value="" data-ng-bind="item.id">
+                                <span class="fa fa-trash"></span>
                                 Remove
                             </a>
                         </td>
