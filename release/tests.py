@@ -103,10 +103,11 @@ class ReleaseTest(unittest.TestCase):
 		self.create_basic_release_normal(datetime.date(2016, 12, 9), Release.THUSDAY, pointsheet)
 		#Act
 		_count = len(Release.objects.all())
-		_release = Release.objects.get(id=2)
+		_release = Release.objects.get(date=datetime.date(2016, 12, 3), dayweek=Release.FRIDAY, pointsheet=pointsheet)
+
 		#Assert
 		self.assertEqual(_count, 6)
-		self.assertEqual(_release.dayweek, Release.WEDNESDAY)
+		self.assertEqual(_release.dayweek, Release.FRIDAY)
 
 	def test_create_new_release_multiples_with_weekend_work(self):
 		"""
@@ -172,6 +173,40 @@ class ReleaseTest(unittest.TestCase):
 		self.assertEqual(_count, 3)
 
 class ReleaseSerializeTest(unittest.TestCase):
+	def setUp(self):
+		print('>>>> SET UP - SERIALIZER')
+		self.create_pointsheet_valid()
+	def tearDown(self):
+		print('>>>> TEAR DOWN - SERIALIZER')
+		self.delete_pointsheet_valid()
+	def create_pointsheet_valid(self):
+		"""
+		"""
+		Pointsheet.objects.create(year=2017, month=02)
+	def get_pointsheet_valid(self):
+		"""
+		"""
+		return Pointsheet.objects.get(year=2017, month=02)
+	def delete_pointsheet_valid(self):
+		"""
+		"""
+		Pointsheet.objects.filter(year=2017, month=02).delete()
+	def get_release_normaly(self):
+		return {
+			u'checkin_lunch': u'13:00', 
+			u'checkin_absence': None, 
+			u'type_absence': None, 
+			u'dayweek': Release.THUSDAY, 
+			u'file_link': None, 
+			u'checkin': u'09:00:00', 
+			u'checkout_lunch': None, 
+			u'pointsheet': self.get_pointsheet_valid(), 
+			u'is_holiday': False, 
+			u'checkout_absence': None, 
+			u'date': u'2017-02-01', 
+			u'justification_absence': None, 
+			u'checkout': u'18:00:00',
+		}
 	def test_create_release_serialze(self):
 		"""
 			Description -- : Teste if create new release is correct or not
@@ -199,42 +234,21 @@ class ReleaseSerializeTest(unittest.TestCase):
 		request = factory.post('/api/releases/', { 'data': _data, 'method': 'POST' }, format='json')
 		
 		#Assert
-		print(request)
-		print (Release.objects.all())
 		self.assertFalse(len(Release.objects.all()), 0)
-		#self.assertEqual(Release.objects.get(id=1).checkin, _data.checkin)
 		self.assertIsNotNone(request)
 	
-	def test_serialize_insert_release(self):
-		_pointsheet = Pointsheet(year=2017, month=02)
-		_pointsheet.save()
-		_pointsheet = Pointsheet.objects.get(id=1)
-		_data = {
-			u'checkin_lunch': u'13:00', 
-			u'checkin_absence': None, 
-			u'type_absence': None, 
-			u'dayweek': Release.THUSDAY, 
-			u'file_link': None, 
-			u'checkin': u'09:00', 
-			u'checkout_lunch': None, 
-			u'pointsheet': _pointsheet, 
-			u'is_holiday': False, 
-			u'checkout_absence': None, 
-			u'date': u'2017-02-01', 
-			u'justification_absence': None, 
-			u'checkout': u'18:00',
-		}
-		data = _data #JSONParser().parse(_data)
-		print('json data ---')
-		print(data)
-		serializer = ReleaseSerializer(data)
-		print(serializer)
-		if serializer.is_valid():
-			print('Serialize valid TRUE')
-			serializer.save()
+	def test_serialize_insert_release_normaly(self):
+		# Arrange
+		data = self.get_release_normaly()
+		serializer = ReleaseSerializer(data=data)
+		if (serializer.is_valid()):
+			print('Serializer is valid...')
 		else:
-			print('Serialize valid FALSE')
-			#return JsonResponse(serializer.data, status=201)
-		#return JsonResponse(serializer.errors, status=400)
+			print('Serializer is NOT valid...')
+		#Act
+		serializer.create(serializer.data)
 		_count = len(Release.objects.all())
+		_item_added = Release.objects.get(pointsheet=self.get_pointsheet_valid(), date=data.get('date'), dayweek=data.get('dayweek'))
+		#Assert
 		self.assertTrue(_count, 1)
+		self.assertIsNotNone(_item_added)
