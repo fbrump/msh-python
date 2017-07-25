@@ -139,6 +139,7 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
         $scope.data.justification_absence = item.justification_absence;
         $scope.data.file_link = item.file_link;
         $scope.data.pointsheet = item.pointsheet;
+        $scope.data.pointsheet_id = item.pointsheet.id;
     };
 
     var func_cleanForm = function () {

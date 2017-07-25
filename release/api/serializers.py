@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# msh-python/pointsheet/api/release.py
+# msh-python/release/api/release.py
 
 from rest_framework import serializers
 from release.models import Release
@@ -49,7 +49,7 @@ class ReleaseSerializer(serializers.Serializer):
 		"""
 			Method for update one instance of the database Release
 		"""
-		instance.date = validated_date.get('date', instance.date)
+		instance.date = validated_data.get('date', instance.date)
 		instance.dayweek = validated_data.get('dayweek', instance.dayweek)
 		instance.checkin = validated_data.get('checkin', instance.checkin)
 		instance.checkout_lunch = validated_data.get('checkout_lunch', instance.checkout_lunch)
@@ -57,7 +57,7 @@ class ReleaseSerializer(serializers.Serializer):
 		instance.checkout = validated_data.get('checkout', instance.checkout)
 		instance.is_holiday = validated_data.get('is_holiday', instance.is_holiday)
 		instance.save()
-		return instance()
+		return instance
 	# class Meta:
 	# 	model = Pointsheet
 	# 	fields = ('id', 'year', 'month', )
