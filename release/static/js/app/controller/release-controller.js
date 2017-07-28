@@ -7,19 +7,6 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
         is_holiday: false
     }
 
-    $scope.removeRelease = function(release){
-        ReleaseApi.Delete(release.id)
-        .success(function(data, status, headers, config) {
-            var index = $scope.data.releases.indexOf(release);
-            if (index != -1) {
-                $scope.data.releases.splice(index, 1);
-            }
-        })
-        .error(function(data, status, headers, config) {
-            console.error(data);
-        });
-    };
- 
     $scope.updateRelease = function() {
         if (!angular.isUndefined($scope.data.id))
         {
@@ -86,9 +73,8 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
     };
 
     $scope.shwRemoveRelease = function (release) {
-        // body...
-        console.log(release);
-        console.log('Delete item...')
+        
+        func_fillForm(release);
         func_showModalDelete();
 
     };
@@ -96,10 +82,7 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
     $scope.deleteRelease = function () {
         // body...
         func_disabledSubmitModal(true);
-        $timeout(function () {
-            func_closeModalDelete();
-            func_disabledSubmitModal(false);
-        }, 1000)
+        func_removeRelease($scope.data);
     };
 
     var func_getPointsheetSelected = function (item) {
@@ -218,6 +201,21 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
 
     var func_disabledSubmitModal = function (disabled) {
         $scope.data.model.is_submit_disabled = disabled;
+    };
+
+    var func_removeRelease = function(release){
+        ReleaseApi.Delete(release.id)
+        .success(function(data, status, headers, config) {
+            getReleases();
+            $scope.data['success'] = true;
+            func_closeModalDelete();
+            func_disabledSubmitModal(false);
+        })
+        .error(function(data, status, headers, config) {
+            console.error(data);
+            $scope.data['success'] = false;
+            func_disabledSubmitModal(false);
+        });
     };
 
     // Load page
