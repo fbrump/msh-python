@@ -85,6 +85,13 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
         }
     };
 
+    $scope.shwRemoveRelease = function (release) {
+        // body...
+        console.log(release);
+        console.log('Delete item...')
+        
+    };
+
     var func_getPointsheetSelected = function (item) {
         _register = $scope.pointsheets.filter(function(el) {
             return el.id==item;

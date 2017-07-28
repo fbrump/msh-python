@@ -72,8 +72,7 @@
                                 <span class="fa fa-edit"></span>
                                 Edit
                             </a>
-                            <a href="#remove" class="btn btn-danger" data-ng-click="removePointsheet(item)" title="Remove release">
-                                <input type="hidden" name="" value="" data-ng-bind="item.id">
+                            <a href="#remove" class="btn btn-danger" data-ng-click="shwRemoveRelease(item)" title="Remove release">
                                 <span class="fa fa-trash"></span>
                                 Remove
                             </a>
@@ -85,6 +84,7 @@
     </section>
 
     {% include "release/partial/_modalForm.html" %}
+    {% include "release/partial/_modalDelete.html" %}
 </section>
 {% endblock content %}
 
