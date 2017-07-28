@@ -10,7 +10,7 @@ myFactoryModule.factory('ReleaseFactory', [function () {
 			checkout_lunch: _TreatEmpty(form['checkout_lunch']),
 			checkin_lunch: _TreatEmpty(form['checkin_lunch']),
 			checkout: form['checkout'],
-			is_holiday: form['is_holiday'],
+			is_holiday: _TreatBoolean(form['is_holiday']),
 			type_absence: form['type_absence'],
 			checkin_absence: form['checkin_absence'],
 			checkout_absence: form['checkout_absence'],
@@ -32,7 +32,17 @@ myFactoryModule.factory('ReleaseFactory', [function () {
 		else{
 			return text;
 		}
-	}
+	};
+
+	var _TreatBoolean = function (check) {
+		if (check === null || check === undefined || check === '' || check === 0 || check === false){
+			return false;
+		}
+		else{
+			return check;
+		}
+	};
+
 	return {
 		ConstructorModel: _ConstructorModel
 	};

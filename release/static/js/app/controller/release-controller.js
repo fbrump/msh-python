@@ -157,6 +157,7 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
         $scope.data.justification_absence = '';
         $scope.data.file_link = '';
         $scope.data.pointsheet = '';
+        $scope.data.pointsheet_id = undefined;
     };
 
     var func_addMessageModal = function (type, message) {
