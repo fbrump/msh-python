@@ -1,5 +1,5 @@
 <!-- MODEL FORM -->
-<div id="modalDeteleRelease" class="modal fade" tabindex="-1" role="dialog">
+<div id="modalDeleteRelease" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -16,17 +16,21 @@
                     </button>
                     <p data-ng-bind="data.model.message"></p>
                 </header>
-                <form class="form form-aligned" data-ng-submit="updateRelease()">
+                <form class="form form-aligned" data-ng-submit="deleteRelease()">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="" data-nd-bind="data.id">
                     <div class="text-right form-group">
+                        <p class="text-left">
+                            Do you really want to remove the time release?
+                        </p>
                         <button type="button" class="btn btn-default" data-dismiss="modal" title="Close modal">
                             <span class="fa fa-times"></span>
                             Cancel
                         </button>
-                        <button type="submit" class="btn btn-danger" title="Confirme to remove">
-                            <span class="fa fa-times"></span>
-                            Confirme
+                        <button type="submit" class="btn btn-danger" title="Confirm to remove" data-ng-disabled="data.model.is_submit_disabled">
+                            <span class="fa fa-spinner fa-spin" ng-show="data.model.is_submit_disabled"></span>
+                            <span class="fa fa-check" ng-hide="data.model.is_submit_disabled"></span>
+                            Confirm
                         </button>
                     </div>
                 </form>

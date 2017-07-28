@@ -2,7 +2,7 @@
 myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, PointsheetApi, $timeout) {
     $scope.messageModal = { type: '', messages: [] };
     $scope.data = {
-        model: { error:false, message:'' },
+        model: { error:false, message:'', is_submit_disabled: false },
         success: false,
         is_holiday: false
     }
@@ -89,7 +89,17 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
         // body...
         console.log(release);
         console.log('Delete item...')
-        
+        func_showModalDelete();
+
+    };
+
+    $scope.deleteRelease = function () {
+        // body...
+        func_disabledSubmitModal(true);
+        $timeout(function () {
+            func_closeModalDelete();
+            func_disabledSubmitModal(false);
+        }, 1000)
     };
 
     var func_getPointsheetSelected = function (item) {
@@ -191,6 +201,23 @@ myApp.controller('releasesCtrl', function ($scope, ReleaseApi, ReleaseFactory, P
             $scope.data.model.message = message;
             console.error(message);
         }
+    };
+
+    var func_showModalDelete = function () {
+        func_messageModal(false, null);
+        var _model = $('#modalDeleteRelease');
+        _model.on('shown.bs.modal', function () {
+            $("#id_pointsheet").focus();
+        });
+        _model.modal();
+    };
+
+    var func_closeModalDelete = function () {
+        $('#modalDeleteRelease').modal('hide');
+    };
+
+    var func_disabledSubmitModal = function (disabled) {
+        $scope.data.model.is_submit_disabled = disabled;
     };
 
     // Load page
