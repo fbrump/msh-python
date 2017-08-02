@@ -1,7 +1,7 @@
 // app/service/release-service.js
 
-myServiceModule.service('ReleaseApi', ['$http', function($http){
-	var globals = { URL: '/api/releases/' };
+myServiceModule.service('ReleaseApi', ['$http', 'serverRoot', function($http, serverRoot){
+	var globals = { URL: serverRoot + 'v1/api/releases/' };
 	var _service = {};
 
 	/**
@@ -33,7 +33,7 @@ myServiceModule.service('ReleaseApi', ['$http', function($http){
 	 * @type {Function}
 	 */
 	_service.Post = function (data) {
-		return $http({ method: 'POST', url: '/api/releases/', data: data });
+		return $http({ method: 'POST', url: 'v1/api/releases/', data: data });
 	}
 
     return _service;

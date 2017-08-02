@@ -1,7 +1,7 @@
 // app/service/pointsheet-service.js
 
-myServiceModule.service('PointsheetApi', ['$http', function($http){
-	var globals = { pointsheetsUrl: '/pointsheets/' };
+myServiceModule.service('PointsheetApi', ['$http', 'serverRoot', function($http, serverRoot){
+	var globals = { pointsheetsUrl: serverRoot + 'v1/api/pointsheets/' };
 	var _service = {};
 
 	/**
@@ -33,7 +33,7 @@ myServiceModule.service('PointsheetApi', ['$http', function($http){
 	 * @type {Function}
 	 */
 	_service.Post = function (data) {
-		return $http({ method: 'POST', url: '/pointsheets/', data: data });
+		return $http({ method: 'POST', url: 'v1/api//pointsheets/', data: data });
 	}
 
     return _service;

@@ -8,8 +8,8 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-	url(r'^pointsheets/$', views.PointsheetList.as_view(), name='pointsheets'),
-	url(r'^pointsheets/(?P<pk>[0-9]+)/$', views.PointsheetDetail.as_view(), name='pointsheets-detail'),
+	url(r'^v1/api/pointsheets/$', views.PointsheetList.as_view(), name='pointsheets'),
+	url(r'^v1/api/pointsheets/(?P<pk>[0-9]+)/$', views.PointsheetDetail.as_view(), name='pointsheets-detail'),
 	url(r'^$', views.PointsheetView.as_view(), name='pointsheet'),
 	]
 

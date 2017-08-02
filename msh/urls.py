@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'^', include('pointsheet.urls')),
     url(r'^', include('release.urls')),
     # admin
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api-token-auth/', view_token.obtain_auth_token),
+    url(r'^v1/api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^v1/api/api-token-auth/', view_token.obtain_auth_token),
 ]
