@@ -6,8 +6,8 @@ myApp.config(['$httpProvider', '$interpolateProvider',
     $interpolateProvider.startSymbol('{$');
     $interpolateProvider.endSymbol('$}');
     /* csrf */
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    /*$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken'; */
 }]);
 
 myApp.filter('formatHour', function () {
@@ -29,7 +29,7 @@ var myFactoryModule = angular.module('MyFactories', []);
 var myServiceModule = angular.module('MyServices', []);
 
 // using jQuery
-function getCookie(name) {
+/*function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
@@ -43,7 +43,7 @@ function getCookie(name) {
         }
     }
     return cookieValue;
-}
+}*/
 //var csrftoken = getCookie('csrftoken');
 
 function formatDate(date) {

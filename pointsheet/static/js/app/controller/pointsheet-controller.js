@@ -1,7 +1,18 @@
 
-myApp.controller('pointsheetsCtrl', function ($scope, PointsheetApi, PointsheetFactory) {
+myApp.controller('pointsheetsCtrl', function ($scope, PointsheetApi, PointsheetFactory, LoginApi) {
     $scope.data = { success: false };
     $scope.messageModal = { type: '', messages: [] };
+
+    LoginApi.Post({"username":"admin","password":"admin123"})
+    .success(function(data, status, headers, config) {
+        console.info('Success');
+        console.log(data);
+        LoginApi.SetHeader(data);
+    })
+    .error(function(data, status, headers, config) {
+        console.info('Error');
+        console.error(data);
+    });
 
     $scope.removePointsheet = function(pointsheet){
         PointsheetApi.Delete(pointsheet.id)
