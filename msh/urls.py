@@ -22,6 +22,7 @@ from rest_framework.authtoken import views as view_token
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', include('login.urls')),
     url(r'^', include('pointsheet.urls')),
     url(r'^', include('release.urls')),
     # admin
