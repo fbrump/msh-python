@@ -19,12 +19,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.authtoken import views as view_token
 
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('login.urls')),
     url(r'^', include('pointsheet.urls')),
     url(r'^', include('release.urls')),
+    url(r'^', include('account.urls')),
     # admin
     url(r'^v1/api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^v1/api/api-token-auth/', view_token.obtain_auth_token),
