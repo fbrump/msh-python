@@ -22,8 +22,6 @@
     </head>
     <body>
         <main class="container">
-            <header class="page-header">
-            </header>
             <br>
             {% block content %}
             {% endblock content %}
@@ -35,13 +33,23 @@
         <!-- JAVASCRIPTs -->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js" charset="utf-8"></script>
+
         <!-- BOOTSTRAP -->
         <script src="{% static 'js/bootstrap/js/bootstrap.min.js' %}"></script>
         
+        <!-- BOOTSTRAP DATEPICKER -->
+        <script src="{% static 'js/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+        <!-- BOOTSTRAP TIMEPICKER -->
+        <script src="{% static 'js/clockpicker-gh-pages/js/bootstrap-clockpicker.min.js' %}"></script>
+
         <script src="{% static 'js/main.js' %}"></script>
 
         <!-- ANGULAR -->
+        <script src="{% static 'js/angular-csrf-cross-domain.js' %}"></script>
+        <script src="{% static 'js/app/app.js' %}"></script>
+        <script src="{% static 'js/app/values/config-values.js' %}"></script>
+        <script src="{% static 'js/app/service/login-service.js' %}"></script>
         
         {% block scriptsContent %}
         {% endblock scriptsContent %}

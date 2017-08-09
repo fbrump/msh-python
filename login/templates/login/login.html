@@ -3,21 +3,30 @@
 
 {% block content %}
 
-<section class="container">
-
+<section class="container" ng-controller="loginCtrl">
+	<header class="alert alert-danger" data-ng-show="!model.is_valid">
+        <b>Danger!</b>
+        <button type="button" class="close" aria-label="Close" ng-click="closeAlert()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <p ng-bind="model.message"></p>
+    </header>
 	<form class="form-signin">
-	        <h2 class="form-signin-heading">Please sign in</h2>
-	        <label for="inputEmail" class="sr-only">Email address</label>
-	        <input id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" type="email">
-	        <label for="inputPassword" class="sr-only">Password</label>
-	        <input id="inputPassword" class="form-control" placeholder="Password" required="" type="password">
-	        <div class="checkbox">
-	          <label>
-	            <input value="remember-me" type="checkbox"> Remember me
-	          </label>
-	        </div>
-	        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-	      </form>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="username" class="sr-only">email or username</label>
+        <input id="username" name="username" class="form-control" placeholder="email or username" required="" autofocus="" type="text" data-ng-model="model.username">
+        <label for="password" class="sr-only">Password</label>
+        <input id="password" name="password" class="form-control" placeholder="Password" required="" type="password" data-ng-model="model.password">
+        <div class="checkbox">
+	        <label>
+            	<input value="remember-me" type="checkbox"> Remember me
+      		</label>
+        </div>
+    	<button class="btn btn-lg btn-primary btn-block" type="button" data-ng-click="submitLogin()" data-ng-disabled="model.is_processing">
+            <span ng-show="model.is_processing" class="fa-li fa fa-spinner fa-spin"></span>
+            Sign in
+        </button>
+  	</form>
 
 </section>
 
@@ -25,6 +34,8 @@
 
 {% block scriptsContent %}
 
+<script src="{% static 'js/app/factory/login-factory.js' %}"></script>
 
+<script src="{% static 'js/app/controller/login-controller.js' %}"></script>
 
 {% endblock scriptsContent %}
