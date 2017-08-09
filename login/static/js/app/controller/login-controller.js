@@ -38,7 +38,7 @@ myApp.controller('loginCtrl', function ($scope, LoginApi, LoginFactory, $timeout
             console.log(data);
             LoginApi.SetHeader(data);
             $scope.model.is_processing = false;
-            $location.path('/').replace();
+            $location.path("/pointsheet"); 
         })
         .error(function(data, status, headers, config) {
             console.info('Error');
