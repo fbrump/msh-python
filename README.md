@@ -2,6 +2,10 @@
 
 An utterly fantastic project starter template for Django 1.10.
 
+### Index Main
+
+[Root Project](https://github.com/fbrump/msh)
+
 ## Features
 
 - Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
